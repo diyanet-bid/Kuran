@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  open-quran:
+    build: .
+    container_name: open-quran
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.local
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "sh", "-c", "curl -f http://localhost:3000 || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 10s 

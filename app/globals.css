@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light Theme - Mushaf Inspired */
+    --background: 0 0% 96%; /* #F5F5F5 */
+    --foreground: 30 30% 15%; /* #3F2305 */
+    --card: 40 60% 90%; /* #F2EAD3 */
+    --card-foreground: 30 30% 15%; /* #3F2305 */
+    --popover: 40 60% 90%; /* #F2EAD3 */
+    --popover-foreground: 30 30% 15%; /* #3F2305 */
+    --primary: 30 30% 15%; /* #3F2305 */
+    --primary-foreground: 40 60% 90%; /* #F2EAD3 */
+    --secondary: 40 60% 90%; /* #F2EAD3 */
+    --secondary-foreground: 30 30% 15%; /* #3F2305 */
+    --muted: 30 15% 45%; /* #8A7D66 */
+    --muted-foreground: 30 15% 45%; /* #8A7D66 */
+    --accent: 35 50% 45%; /* #A67935 */
+    --accent-foreground: 40 60% 90%; /* #F2EAD3 */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 40 60% 90%; /* #F2EAD3 */
+    --input: 40 60% 90%; /* #F2EAD3 */
+    --ring: 35 50% 45%; /* #A67935 */
+    --radius: 0.5rem;
+
+    /* Custom Mushaf Colors */
+    --mushaf-text-weak: 138 125 102; /* #8A7D66 - Zayıf metin */
+    --mushaf-highlight: 214 184 140; /* #D6B88C - Vurgu */
+    --mushaf-active: 63 35 5; /* #3F2305 - Aktif buton */
+  }
+
+  .dark {
+    /* Dark Theme - Mushaf Night Mode */
+    --background: 0 0% 11%; /* #1B1B1B */
+    --foreground: 40 60% 90%; /* #EAE6DA */
+    --card: 30 20% 15%; /* #292419 */
+    --card-foreground: 40 60% 90%; /* #EAE6DA */
+    --popover: 30 20% 15%; /* #292419 */
+    --popover-foreground: 40 60% 90%; /* #EAE6DA */
+    --primary: 30 20% 15%; /* #292419 */
+    --primary-foreground: 40 60% 90%; /* #EAE6DA */
+    --secondary: 30 20% 15%; /* #292419 */
+    --secondary-foreground: 40 60% 90%; /* #EAE6DA */
+    --muted: 30 10% 65%; /* #AFA79A */
+    --muted-foreground: 30 10% 65%; /* #AFA79A */
+    --accent: 35 40% 65%; /* #D6B88C */
+    --accent-foreground: 30 20% 15%; /* #292419 */
+    --destructive: 239 68 68; /* Hata rengi dark */
+    --destructive-foreground: 40 60% 90%; /* #EAE6DA */
+    --border: 30 20% 15%; /* #292419 */
+    --input: 30 20% 15%; /* #292419 */
+    --ring: 35 40% 65%; /* #D6B88C */
+
+    /* Custom Mushaf Colors Dark */
+    --mushaf-text-weak: 175 167 154; /* #AFA79A - Zayıf metin */
+    --mushaf-highlight: 214 184 140; /* #D6B88C - Vurgu */
+    --mushaf-active: 63 35 5; /* #3F2305 - Aktif buton */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Mushaf specific typography */
+.font-arabic {
+  font-family: var(--font-amiri), serif;
+  direction: rtl;
+  text-align: right;
+}
+
+.verse-text {
+  line-height: 2.2;
+  font-size: 1.5rem;
+  color: hsl(var(--foreground));
+}
+
+@media (max-width: 768px) {
+  .verse-text {
+    font-size: 1.25rem;
+    line-height: 2;
+  }
+}
+
+/* Custom Mushaf utility classes */
+.text-mushaf-weak {
+  color: hsl(var(--mushaf-text-weak));
+}
+
+.text-mushaf-highlight {
+  color: hsl(var(--mushaf-highlight));
+}
+
+.bg-mushaf-active {
+  background-color: hsl(var(--mushaf-active));
+}
+
+.border-mushaf-highlight {
+  border-color: hsl(var(--mushaf-highlight));
+}
+
+/* Gradient utilities for mushaf theme */
+.bg-gradient-mushaf {
+  background: linear-gradient(135deg, hsl(var(--card)), hsl(var(--muted)));
+}
+
+.bg-gradient-mushaf-accent {
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+}
+
+/* Enhanced focus states for accessibility */
+.focus-mushaf {
+  @apply focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background;
+}
+
+/* Custom selection color for both light and dark mode */
+::selection {
+  background: #F7E6B2;
+  color: #3F2305;
+}
+
+.dark ::selection {
+  background: #D6B88C;
+  color: #292419;
+}
