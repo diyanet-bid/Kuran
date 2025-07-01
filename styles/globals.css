@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer base {
+  :root {
+    /* Light Theme */
+    --background: 0 0% 100%;          /* #FFFFFF */
+    --foreground: 30 30% 8%;          /* #231A0A - Daha koyu metin */
+    --card: 40 60% 98%;               /* #FCF9F2 - Daha açık kart arka planı */
+    --card-foreground: 30 30% 8%;     /* #231A0A - Daha koyu kart metni */
+    --popover: 40 60% 98%;            /* #FCF9F2 */
+    --popover-foreground: 30 30% 8%;  /* #231A0A */
+    --primary: 35 50% 40%;            /* #9E6B2E - Daha koyu birincil renk */
+    --primary-foreground: 40 60% 98%; /* #FAF7F0 */
+    --secondary: 40 60% 90%;          /* #F5EFE5 - Daha açık ikincil renk */
+    --secondary-foreground: 30 30% 8%;/* #231A0A */
+    --muted: 30 12% 40%;              /* #6B5D4A - Daha koyu muted renk */
+    --muted-foreground: 30 12% 40%;   /* #6B5D4A */
+    --accent: 35 50% 40%;             /* #9E6B2E - Daha koyu vurgu rengi */
+    --accent-foreground: 40 60% 98%;  /* #FAF7F0 */
+    --destructive: 0 84% 60%;         /* #E53935 */
+    --destructive-foreground: 0 0% 100%; /* #FFFFFF */
+    --border: 40 60% 85%;             /* #F0E8D8 - Daha belirgin kenarlık */
+    --input: 40 60% 98%;              /* #FCF9F2 */
+    --ring: 35 50% 40%;               /* #9E6B2E */
+    --radius: 0.5rem;
+
+    /* Mushaf-ek renkler */
+    --mushaf-text-weak: 30 12% 40%;    /* #6B5D4A - Daha koyu zayıf metin */
+    --mushaf-highlight: 35 50% 40%;    /* #9E6B2E */
+    --mushaf-active: 35 50% 40%;       /* #9E6B2E */
+
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+  .dark {
+    /* Dark Theme */
+    --background: 30 20% 8%;          /* #1A1510 - Daha koyu ve göz yormayan arka plan */
+    --foreground: 40 65% 95%;         /* #F2EDE4 - Daha parlak ve okunabilir metin */
+    --card: 30 20% 12%;               /* #231D16 - Daha koyu kart arka planı */
+    --card-foreground: 40 65% 95%;    /* #F2EDE4 - Kart metni için daha iyi kontrast */
+    --popover: 30 20% 12%;            /* #231D16 - Popover için tutarlı renk */
+    --popover-foreground: 40 65% 95%; /* #F2EDE4 - Popover metni için tutarlı renk */
+    --primary: 35 45% 75%;            /* #E2C9A3 - Daha parlak birincil renk */
+    --primary-foreground: 30 20% 8%;  /* #1A1510 - Birincil metin için daha iyi kontrast */
+    --secondary: 40 60% 25%;          /* #3D3325 - Daha koyu ikincil renk */
+    --secondary-foreground: 40 65% 95%;/* #F2EDE4 - İkincil metin için daha iyi kontrast */
+    --muted: 30 12% 60%;              /* #9A8A7A - Daha az dikkat dağıtıcı muted renk */
+    --muted-foreground: 30 12% 60%;   /* #9A8A7A - Muted metin için tutarlı renk */
+    --accent: 35 45% 75%;             /* #E2C9A3 - Vurgu rengi için daha parlak ton */
+    --accent-foreground: 30 20% 8%;   /* #1A1510 - Vurgu metni için daha iyi kontrast */
+    --destructive: 0 75% 80%;         /* #FF8A8A - Daha belirgin hata rengi */
+    --destructive-foreground: 30 20% 8%; /* #1A1510 - Hata metni için daha iyi kontrast */
+    --border: 30 20% 15%;             /* #2A221B - Daha belirgin kenarlık rengi */
+    --input: 30 20% 12%;              /* #231D16 - Input alanları için tutarlı renk */
+    --ring: 35 45% 75%;               /* #E2C9A3 - Odak halkası için tutarlı renk */
+
+    /* Mushaf-ek renkler (dark) */
+    --mushaf-text-weak: 30 12% 60%;    /* #9A8A7A - Daha az dikkat dağıtıcı zayıf metin */
+    --mushaf-highlight: 35 45% 75%;    /* #E2C9A3 - Vurgu için tutarlı renk */
+    --mushaf-active: 35 45% 75%;       /* #E2C9A3 - Aktif durum için tutarlı renk */
+
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom selection color for both light and dark mode */
+::selection {
+  background: #F7E6B2;
+  color: #3F2305;
+}
+
+.dark ::selection {
+  background: #D6B88C;
+  color: #292419;
+}
