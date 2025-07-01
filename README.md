@@ -129,7 +129,7 @@ Projeye katkı sağlamak veya geri bildirimde bulunmak için aşağıdaki kanall
 - **GitHub Discussions:** Genel sohbet ve duyurular _(aktif ise)_
 - **API Bilgileri:** Kur’an API Dokümantasyonu
 - **Diyanet Bilgi İşlem Daire Başkanlığı GitHub:** [@diyanet-bid](https://github.com/diyanet-bid)
-- **Resmi İletişim:** bim@diyanet.gov.tr
+- **Resmi İletişim:** community@diyanet.gov.tr
 
 ---
 
