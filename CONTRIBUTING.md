@@ -79,11 +79,9 @@ Bu depoyu kendi GitHub hesabınıza **fork**'layın.
 Fork'ladığınız depoyu yerel makinenize klonlayın:
 
 ```bash
-git clone https://github.com/SENIN_KULLANICI_ADIN/[KuranAppRepoAdi].git
-cd [KuranAppRepoAdi]
+git clone https://github.com/diyanet-bid/Kuran.git
+cd Kuran
 ````
-
-> `[KuranAppRepoAdi]` kısmını projenin gerçek repo adıyla değiştirin.
 
 ---
 
