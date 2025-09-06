@@ -1,20 +1,20 @@
-"use client"
+"use client";
 
-import { useQuery } from "@tanstack/react-query"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { getSurahData } from "@/services/quran-api"
-import { VerseComponent } from "./verse-component"
-import { LoadingSpinner } from "@/components/ui/loading-spinner"
-import { useQuranStore } from "@/stores/quran-store"
-import { useLanguage } from "@/components/language-provider"
+import { useQuery } from "@tanstack/react-query";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { getSurahData } from "@/services/quran-api";
+import { VerseComponent } from "./verse-component";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import { useQuranStore } from "@/stores/quran-store";
+import { useLanguage } from "@/components/language-provider";
 
 interface SurahReaderProps {
-  surahId: number
+  surahId: number;
 }
 
 export function SurahReader({ surahId }: SurahReaderProps) {
-  const { currentTranslation } = useQuranStore()
-  const { t, language } = useLanguage()
+  const { currentTranslation } = useQuranStore();
+  const { t, language } = useLanguage();
 
   const {
     data: surahData,
@@ -23,7 +23,7 @@ export function SurahReader({ surahId }: SurahReaderProps) {
   } = useQuery({
     queryKey: ["surah", surahId],
     queryFn: () => getSurahData(surahId),
-  })
+  });
 
   if (isLoading) {
     return (
@@ -31,7 +31,7 @@ export function SurahReader({ surahId }: SurahReaderProps) {
         <LoadingSpinner />
         <span className="ml-2">{t("quran.loading")}</span>
       </div>
-    )
+    );
   }
 
   if (error || !surahData) {
@@ -41,24 +41,28 @@ export function SurahReader({ surahId }: SurahReaderProps) {
           <p className="text-destructive">{t("quran.surahNotFound")}</p>
         </CardContent>
       </Card>
-    )
+    );
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
+    <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6 px-2 sm:px-4">
       <Card>
-        <CardHeader className="text-center">
-          <CardTitle className="text-3xl font-arabic">{surahData.surah.names.arabic}</CardTitle>
-          <p className="text-xl text-muted-foreground">
-            {language === "tr" ? surahData.surah.names.tr : surahData.surah.names.en}
+        <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6">
+          <CardTitle className="text-2xl sm:text-3xl font-arabic leading-relaxed">
+            {surahData.surah.names.arabic}
+          </CardTitle>
+          <p className="text-lg sm:text-xl text-muted-foreground mt-2">
+            {language === "tr"
+              ? surahData.surah.names.tr
+              : surahData.surah.names.en}
           </p>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground mt-1">
             {surahData.surah.verses_count} {t("quran.verses")}
           </p>
         </CardHeader>
       </Card>
 
-      <div className="space-y-4">
+      <div className="space-y-3 sm:space-y-4">
         {surahData.verses.map((verse) => (
           <VerseComponent
             key={verse.id}
@@ -69,5 +73,5 @@ export function SurahReader({ surahId }: SurahReaderProps) {
         ))}
       </div>
     </div>
-  )
+  );
 }
