@@ -63,22 +63,56 @@ Bu özellikler sayesinde kullanıcılar Kur’an-ı Kerim’e dijital ortamda sa
 
 Bu proje **tamamen frontend odaklı** bir web uygulaması olarak geliştirilmektedir:
 
-- **Framework:** Next.js 15+ (App Router tercih edilebilir)
-- **Durum Yönetimi:** Redux Toolkit
-- **Programlama Dili:** TypeScript _(önerilir)_ / JavaScript
-- **Stil:** Tailwind CSS / CSS Modules / Styled Components _(topluluk kararına göre)_
-- **API Entegrasyonu:** `fetch` API veya `axios` (Kur’an API ile entegrasyon)
-- **Linting & Formatting:** ESLint, Prettier
+- **Framework:** Next.js 15+ (App Router)
+- **Programlama Dili:** TypeScript (strict mode aktif)
+- **Durum Yönetimi:** Zustand + TanStack Query (server state için)
+- **Stil:** Tailwind CSS
+- **UI Bileşenleri:** Radix UI + shadcn/ui
+- **Form Yönetimi:** React Hook Form + Zod validation
+- **Tema Yönetimi:** next-themes (dark/light mode)
+- **Fontlar:** Inter (Latin), Amiri (Arapça)
+- **API Entegrasyonu:** Native `fetch` API (Diyanet Kur'an API ile)
+- **Linting & Formatting:** ESLint, TypeScript strict
 - **Versiyon Kontrol:** Git & GitHub
-- **Paket Yöneticisi:** npm / yarn / pnpm
+- **Paket Yöneticisi:** npm
 
-> **Not:** Bu proje başlangıç aşamasında bir backend veya veritabanı içermemektedir. Tüm veriler harici Kur’an API’den çekilir, kullanıcıya özel ayarlar çerezlerde saklanır.
+### Temel Kütüphaneler
+- **React 19** - UI framework
+- **Radix UI** - Accessible UI primitives
+- **Lucide React** - Modern icon library
+- **Class Variance Authority** - CSS class management
+- **Tailwind Merge & Animate** - Styling utilities
+
+> **Not:** Bu proje başlangıç aşamasında bir backend veya veritabanı içermemektedir. Tüm veriler Diyanet Kur'an API'den çekilir, kullanıcıya özel ayarlar çerezlerde (cookies) saklanır.
 
 ---
 
 ## 🚀 Nasıl Başlarım?
 
-Detaylı kurulum talimatları ve önkoşullar için lütfen `INSTALLATION.md` dosyasına göz atın. _(Oluşturulacak)_
+### Hızlı Başlangıç
+
+```bash
+# Projeyi klonlayın
+git clone https://github.com/diyanet-bid/kuran.git
+cd kuran
+
+# Bağımlılıkları yükleyin
+npm install
+
+# Ortam değişkenlerini ayarlayın
+cp .env.example .env.local
+
+# Geliştirme sunucusunu başlatın
+npm run dev
+```
+
+Uygulama [http://localhost:3000](http://localhost:3000) adresinde çalışmaya başlayacaktır.
+
+### Detaylı Kurulum
+
+Kapsamlı kurulum talimatları, sistem gereksinimleri ve sorun giderme için **[INSTALLATION.md](./INSTALLATION.md)** dosyasını inceleyiniz.
+
+> **API Erişimi:** Diyanet Kur'an API token'ı almak için: https://acikkaynakkuran-dev.diyanet.gov.tr
 
 ---
 
