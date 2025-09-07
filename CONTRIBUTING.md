@@ -79,7 +79,7 @@ cd Kuran
 
 ### 3️⃣ Geliştirme Ortamını Kurun
 
-Projenin ana [README.md](.README.md#-katkıda-bulunma) dosyasındaki kurulum adımlarını izleyerek geliştirme ortamınızı hazırlayın.
+Projenin ana [README.md](./README.md#-katkıda-bulunma) dosyasındaki kurulum adımlarını izleyerek geliştirme ortamınızı hazırlayın.
 
 ---
 
