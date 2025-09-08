@@ -208,7 +208,7 @@ const translations = {
     "cta.description": "Günlük Kur'an okuma rutininiz için uygulamamızı kullanan binlerce Müslümana katılın.",
     "cta.startNow": "Şimdi Okumaya Başla",
     "cta.mobileApp": "Mobil Uygulama (Yakında)",
-    "cta.free": "Sonsuza kadar ücretsiz",
+    "cta.free": "Ücretsiz kullanım",
     "cta.openSource": "Açık kaynak",
     "cta.noAds": "Reklam yok",
     "cta.privacy": "Gizlilik odaklı",
