@@ -83,10 +83,25 @@
   color: hsl(var(--foreground));
 }
 
+/* Mobile responsive improvements */
 @media (max-width: 768px) {
   .verse-text {
     font-size: 1.25rem;
-    line-height: 2;
+    line-height: 1.8;
+  }
+}
+
+@media (max-width: 480px) {
+  .verse-text {
+    font-size: 1.1rem;
+    line-height: 1.7;
+  }
+}
+
+/* Extra small screens (xs) - 475px and below */
+@media (max-width: 475px) {
+  .text-xs {
+    font-size: 0.65rem;
   }
 }
 
@@ -123,11 +138,11 @@
 
 /* Custom selection color for both light and dark mode */
 ::selection {
-  background: #F7E6B2;
-  color: #3F2305;
+  background: #f7e6b2;
+  color: #3f2305;
 }
 
 .dark ::selection {
-  background: #D6B88C;
+  background: #d6b88c;
   color: #292419;
 }
