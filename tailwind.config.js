@@ -17,6 +17,14 @@ module.exports = {
         "2xl": "1400px",
       },
     },
+    screens: {
+      xs: "475px",
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+      "2xl": "1536px",
+    },
     extend: {
       fontFamily: {
         sans: ["var(--font-inter)"],
@@ -81,10 +89,12 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       backgroundImage: {
-        "gradient-mushaf": "linear-gradient(135deg, hsl(var(--card)), hsl(var(--muted)))",
-        "gradient-mushaf-accent": "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)))",
+        "gradient-mushaf":
+          "linear-gradient(135deg, hsl(var(--card)), hsl(var(--muted)))",
+        "gradient-mushaf-accent":
+          "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)))",
       },
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};
