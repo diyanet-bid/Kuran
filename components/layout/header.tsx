@@ -57,30 +57,4 @@ export function Header() {
           </Link>
           <Link
             href="/developers"
-            className="flex items-center space-x-1 text-sm font-medium text-muted-foreground hover:text-primary dark:hover:text-accent transition-colors"
-          >
-            <Code className="h-4 w-4" />
-            <span>{t("nav.developers")}</span>
-          </Link>
-        </nav>
-
-        <div className="hidden md:flex items-center space-x-2">
-          <LanguageToggle />
-          <ThemeToggle />
-          <Button
-            asChild
-            size="sm"
-            className="bg-primary hover:bg-primary/90 text-primary-foreground"
-          >
-            <Link href="/quran">{t("nav.startReading")}</Link>
-          </Button>
-        </div>
-        <div className="flex md:hidden items-center space-x-2">
-          <LanguageToggle />
-          <ThemeToggle />
-          <MobileNavigation />
-        </div>
-      </div>
-    </header>
-  );
-}
+            className="flex items-center space-x-1 text-sm font-medium text-muted-foreground hover:

@@ -43,13 +43,6 @@ Fikrinizi ve neden faydalı olacağını düşündüğünüzü açıklayın.
 
 ---
 
-### 💻 Kod Katkısı _(Code Contributions)_
-
-En heyecan verici kısım!  
-Eğer kod yazarak katkıda bulunmak isterseniz, aşağıdaki adımları izleyin (detaylı rehber aşağıda).
-
----
-
 ### 📝 Belgelendirme _(Documentation)_
 
 README, kurulum rehberi veya kod içi yorumlar gibi belgelerin iyileştirilmesine yardımcı olabilirsiniz.
@@ -62,11 +55,10 @@ UI/UX konusunda önerileriniz veya Figma/XD gibi araçlarla hazırlanmış tasar
 
 ---
 
-## 🧭 İlk Kod Katkınız
+### 💻 Kod Katkısı _(Code Contributions)_
 
-Kod katkısında bulunmak istiyorsanız adım adım rehber:
-
----
+En heyecan verici kısım!  
+Eğer kod yazarak katkıda bulunmak isterseniz, aşağıdaki adımları izleyin (detaylı rehber aşağıda).
 
 ### 1️⃣ Projeyi Fork'layın
 
@@ -87,14 +79,14 @@ cd Kuran
 
 ### 3️⃣ Geliştirme Ortamını Kurun
 
-Projenin ana `README.md` dosyasındaki kurulum adımlarını izleyerek geliştirme ortamınızı hazırlayın.
+Projenin ana [README.md](./README.md#-katkıda-bulunma) dosyasındaki kurulum adımlarını izleyerek geliştirme ortamınızı hazırlayın.
 
 ---
 
 ### 4️⃣ Yeni Bir Branch Oluşturun
 
 Yapacağınız değişiklikler için yeni bir branch oluşturun.
-Branch adlarının açıklayıcı olmasına özen gösterin (İngilizce tercih edilir):
+Branch adlarının açıklayıcı olmasına özen gösterin:
 
 ```bash
 git checkout -b feature/ayet-paylasma-ozelligi
@@ -151,7 +143,7 @@ git push origin feature/ayet-paylasma-ozelligi
 
 ### 9️⃣ Pull Request (PR) Açın
 
-GitHub üzerinden fork'ladığınız depodan ana projeye (**dib-bid/\[KuranAppRepoAdi]**) bir Pull Request açın.
+GitHub üzerinden fork'ladığınız depodan ana projeye (**dib-bid/Kuran**) bir Pull Request açın.
 
 PR başlığınızın ve açıklamanızın net ve anlaşılır olmasına dikkat edin:
 
