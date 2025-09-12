@@ -20,8 +20,7 @@ const amiri = Amiri({
 
 export const metadata: Metadata = {
     title: "Kuran-ı Kerim Uygulaması - Open Source Digital Quran",
-    description:
-        "Modern, açık kaynaklı dijital Kuran-ı Kerim uygulaması. Sesli okuma, meal, güzel tipografi ile topluluk tarafından geliştirilmektedir.",
+    description: "Modern, açık kaynaklı dijital Kuran-ı Kerim uygulaması. Sesli okuma, meal, güzel tipografi ile topluluk tarafından geliştirilmektedir.",
     keywords: [
         "Kuran",
         "Quran",
@@ -44,9 +43,10 @@ export default function RootLayout({
 }) {
     return (
         <html lang="tr" suppressHydrationWarning>
-            <body
-                className={`${inter.variable} ${amiri.variable} font-sans antialiased !overflow-x-hidden`}
-            >
+            <head>
+                <link rel="icon" href="/fav.ico" />
+            </head>
+            <body className={`${inter.variable} ${amiri.variable} font-sans antialiased !overflow-x-hidden`}>
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"
