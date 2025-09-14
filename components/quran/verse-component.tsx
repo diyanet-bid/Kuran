@@ -26,7 +26,7 @@ export function VerseComponent({ verse, showTranslation, translationLanguage }: 
         <div className="flex items-start justify-between mb-4">
           <div className="text-[1.25rem] font-bold" style={{ color: '#5a4a36' }}>
             <span className="dark:text-[#E2C9A3]">
-              {t("quran.surah")} {verse.surah_id}, {t("quran.verse")} {verse.verse_number}
+              {verse.surah_id}{t("common.ordinalSuffix")} {t("quran.surah")}, {verse.verse_number}{t("common.ordinalSuffix")} {t("quran.verse")}
             </span>
           </div>
           <div className="flex items-center space-x-2">

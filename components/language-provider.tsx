@@ -236,6 +236,9 @@ const translations = {
     "navigation.prevSurah": "Önceki Sure",
     "navigation.nextSurah": "Sonraki Sure",
     "navigation.surah": "Sure",
+
+    // Common
+    "common.ordinalSuffix": ".",
   },
   en: {
     // Header
@@ -461,6 +464,9 @@ const translations = {
     "navigation.prevSurah": "Previous Surah",
     "navigation.nextSurah": "Next Surah",
     "navigation.surah": "Surah",
+
+    // Common
+    "common.ordinalSuffix": "th",
   },
 }
 

@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: SurahPageProps): Promise<Meta
   const surahId = Number.parseInt(resolvedParams.id)
   
   return {
-    title: `Surah ${surahId} - Kuran-ı Kerim`,
+    title: `${surahId}. Sure - Kuran-ı Kerim`,
     description: `Kuran-ı Kerim'in ${surahId}. suresini okuyun.`
   }
 }

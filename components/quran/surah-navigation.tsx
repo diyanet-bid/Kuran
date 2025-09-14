@@ -61,8 +61,8 @@ export function SurahNavigation({ currentSurah }: SurahNavigationProps) {
         </div>
 
         <div className="text-center">
-          <h1 className="text-2xl font-bold">{t("navigation.surah")} {currentSurah}</h1>
-          <p className="text-muted-foreground mt-1">{getSurahName(currentSurah)}</p>
+          <h1 className="text-2xl font-bold">{getSurahName(currentSurah)}</h1>
+          <p className="text-muted-foreground mt-1">{currentSurah}{t("common.ordinalSuffix")} {t("navigation.surah")}</p>
         </div>
 
         <div className="flex items-center space-x-4">
