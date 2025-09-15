@@ -229,7 +229,7 @@ const translations = {
     "footer.discord": "Discord",
     "footer.telegram": "Telegram",
     "footer.contact": "İletişim",
-    "footer.copyright": "© 2024 Kur'an-ı Kerim Uygulaması. Açık kaynak proje.",
+    "footer.copyright": "© 2025 Kur'an-ı Kerim Uygulaması. Açık kaynak proje.",
     "footer.madeWith": "ile Ümmet için yapıldı",
 
     // Navigation
@@ -454,7 +454,7 @@ const translations = {
     "footer.discord": "Discord",
     "footer.telegram": "Telegram",
     "footer.contact": "Contact",
-    "footer.copyright": "© 2024 Quran Application. Open source project.",
+    "footer.copyright": "© 2025 Quran Application. Open source project.",
     "footer.madeWith": "Made with ❤️ for the Ummah",
 
     // Navigation
@@ -679,7 +679,7 @@ const translations = {
     "footer.discord": "Discord",
     "footer.telegram": "Telegram",
     "footer.contact": "Contacto",
-    "footer.copyright": "© 2024 Aplicación del Corán. Proyecto de código abierto.",
+    "footer.copyright": "© 2025 Aplicación del Corán. Proyecto de código abierto.",
     "footer.madeWith": "Hecho con",
 
     // Navigation
