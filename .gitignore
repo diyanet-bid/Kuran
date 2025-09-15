@@ -26,4 +26,3 @@ next-env.d.ts
 
 /.vscode/
 /.idea/
-.env.example
