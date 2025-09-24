@@ -6,6 +6,7 @@ import { Play, Bookmark, BookmarkCheck } from "lucide-react"
 import { useQuranStore } from "@/stores/quran-store"
 import { useLanguage } from "@/components/language-provider"
 import type { Verse } from "@/types/quran"
+import { getOrdinal } from "@/lib/utils"
 
 interface VerseComponentProps {
   verse: Verse
@@ -15,7 +16,7 @@ interface VerseComponentProps {
 
 export function VerseComponent({ verse, showTranslation, translationLanguage }: VerseComponentProps) {
   const { bookmarks, toggleBookmark } = useQuranStore()
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
   const isBookmarked = bookmarks.includes(verse.id)
 
   const translation = translationLanguage === "tr" ? verse.translations.tr : verse.translations.en
@@ -26,7 +27,7 @@ export function VerseComponent({ verse, showTranslation, translationLanguage }: 
         <div className="flex items-start justify-between mb-4">
           <div className="text-[1.25rem] font-bold" style={{ color: '#5a4a36' }}>
             <span className="dark:text-[#E2C9A3]">
-              {t("quran.surah")} {verse.surah_id}, {t("quran.verse")} {verse.verse_number}
+              {verse.surah_id}{getOrdinal(verse.surah_id, language)} {t("quran.surah")}, {verse.verse_number}{getOrdinal(verse.verse_number, language)} {t("quran.verse")}
             </span>
           </div>
           <div className="flex items-center space-x-2">

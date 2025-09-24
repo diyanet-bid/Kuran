@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/tooltip"
 import { useQuery } from "@tanstack/react-query"
 import { getSurahList } from "@/services/quran-api"
+import { getOrdinal } from "@/lib/utils"
 
 interface SurahNavigationProps {
   currentSurah: number
@@ -61,8 +62,8 @@ export function SurahNavigation({ currentSurah }: SurahNavigationProps) {
         </div>
 
         <div className="text-center">
-          <h1 className="text-2xl font-bold">{t("navigation.surah")} {currentSurah}</h1>
-          <p className="text-muted-foreground mt-1">{getSurahName(currentSurah)}</p>
+          <h1 className="text-2xl font-bold">{getSurahName(currentSurah)}</h1>
+          <p className="text-muted-foreground mt-1">{currentSurah}{getOrdinal(currentSurah, language)} {t("navigation.surah")}</p>
         </div>
 
         <div className="flex items-center space-x-4">

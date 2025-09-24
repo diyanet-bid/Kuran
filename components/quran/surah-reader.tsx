@@ -52,9 +52,9 @@ export function SurahReader({ surahId }: SurahReaderProps) {
           <p className="text-xl text-muted-foreground">
             {language === "tr" ? surahData.surah.names.tr : surahData.surah.names.en}
           </p>
-          <p className="text-sm text-muted-foreground">
+          {/* <p className="text-sm text-muted-foreground">
             {surahData.surah.verses_count} {t("quran.verses")}
-          </p>
+          </p> */}
         </CardHeader>
       </Card>
 
