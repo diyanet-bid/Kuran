@@ -16,6 +16,7 @@ export function LanguageToggle() {
       <SelectContent>
         <SelectItem value="tr">Türkçe</SelectItem>
         <SelectItem value="en">English</SelectItem>
+        <SelectItem value="es">Español</SelectItem>
       </SelectContent>
     </Select>
   )
