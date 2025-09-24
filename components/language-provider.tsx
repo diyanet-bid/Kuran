@@ -45,7 +45,7 @@ const translations = {
     "quran.copy": "Kopyala",
     "quran.copied": "Kopyalandı",
     "quran.copyAll": "Tümünü Kopyala",
-    "quran.copiedAll": "Tüm Sayfa Kopyalandı",
+    "quran.copiedAll": "Sayfa Kopyalandı",
     "quran.browseSurahs": "Surelere Göz At",
     "quran.previous": "Önceki",
     "quran.next": "Sonraki",
