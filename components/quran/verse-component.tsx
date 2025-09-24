@@ -69,7 +69,7 @@ export function VerseComponent({ verse, showTranslation, translationLanguage }: 
                     <p className="font-medium">{isPlaying ? t("quran.pause") : t("quran.play")}</p>
                   </TooltipContent>
                 </Tooltip>
-                {/* Bookmark */}            
+                {/* Bookmark */}
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button
