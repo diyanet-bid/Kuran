@@ -10,6 +10,7 @@ import { getPageData } from "@/services/quran-api"
 import { VerseComponent } from "./verse-component"
 import { LoadingSpinner } from "@/components/ui/loading-spinner"
 import { useLanguage } from "@/components/language-provider"
+import { toast } from "@/hooks/use-toast";
 
 interface QuranReaderProps {
   pageNumber: number
@@ -62,8 +63,12 @@ export function QuranReader({ pageNumber }: QuranReaderProps) {
       .map(v => `${v.text_arabic}\n${currentTranslation === "tr" ? v.translations.tr : v.translations.en ?? ""}`)
       .join("\n\n")
 
-    navigator.clipboard.writeText(textToCopy)
-      .then(() => alert("Tüm sayfa kopyalandı!"))
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      toast({
+        title: t("quran.copiedAll"),
+        variant: "default",
+      });
+    });
   }
 
   return (
@@ -93,6 +98,7 @@ export function QuranReader({ pageNumber }: QuranReaderProps) {
               className="border-accent/30 hover:bg-accent/10 hover:text-accent bg-card/50"
             >
               {isBookmarked ? <BookmarkCheck className="h-4 w-4" /> : <Bookmark className="h-4 w-4" />}
+              {isBookmarked ? t("quran.bookmarked") : t("quran.bookmark")}
             </Button>
 
             {/* ✅ Tüm sayfayı kopyala */}
@@ -103,7 +109,7 @@ export function QuranReader({ pageNumber }: QuranReaderProps) {
               className="border-accent/30 hover:bg-accent/10 hover:text-accent bg-card/50"
             >
               <Copy className="h-4 w-4 mr-1" />
-              Tümünü Kopyala
+              {t("quran.copyAll")}
             </Button>
           </div>
         </CardHeader>

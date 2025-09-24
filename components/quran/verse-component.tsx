@@ -34,10 +34,10 @@ export function VerseComponent({ verse, showTranslation, translationLanguage }: 
   const handleCopy = () => {
     const textToCopy = `${verse.text_arabic}\n${translation ?? ""}`
     navigator.clipboard.writeText(textToCopy).then(() => {
-      toast({
-      title: t("quran.copied"),
-      variant: "default",
-    });
+        toast({
+        title: t("quran.copied"),
+        variant: "default",
+      });
     })
   } // ✅ o ayeti kopyalıyor
 
