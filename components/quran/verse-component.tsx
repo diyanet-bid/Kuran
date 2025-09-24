@@ -52,61 +52,55 @@ export function VerseComponent({ verse, showTranslation, translationLanguage }: 
           </div>
 
           <div className="flex items-center space-x-2">
-            {/* Play/Pause */}
             <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setIsPlaying(!isPlaying)}
-                    className="hover:bg-primary/10 hover:text-primary"
-                  >
-                    {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p className="font-medium">{isPlaying ? t("quran.pause") : t("quran.play")}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            
-            {/* Bookmark */}
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => toggleBookmark(verse.id)}
-                    className="hover:bg-primary/10 hover:text-primary"
-                  >
-                    {isBookmarked ? <BookmarkCheck className="h-4 w-4 text-primary" /> : <Bookmark className="h-4 w-4" />}
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p className="font-medium">{isBookmarked ? t("quran.bookmarked") : t("quran.bookmark")}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-
-            {/* Copy */}
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={handleCopy}
-                    className="hover:bg-primary/10 hover:text-primary"
-                  >
-                    <Copy className="h-4 w-4 mr-1" />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p className="font-medium">{t("quran.copy")}</p>
-                </TooltipContent>
-              </Tooltip>
+              {/* Play/Pause */}
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setIsPlaying(!isPlaying)}
+                      className="hover:bg-primary/10 hover:text-primary"
+                    >
+                      {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p className="font-medium">{isPlaying ? t("quran.pause") : t("quran.play")}</p>
+                  </TooltipContent>
+                </Tooltip>
+                {/* Bookmark */}            
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => toggleBookmark(verse.id)}
+                      className="hover:bg-primary/10 hover:text-primary"
+                    >
+                      {isBookmarked ? <BookmarkCheck className="h-4 w-4 text-primary" /> : <Bookmark className="h-4 w-4" />}
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p className="font-medium">{isBookmarked ? t("quran.bookmarked") : t("quran.bookmark")}</p>
+                  </TooltipContent>
+                </Tooltip>
+                {/* Copy */}            
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={handleCopy}
+                      className="hover:bg-primary/10 hover:text-primary"
+                    >
+                      <Copy className="h-4 w-4 mr-1" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p className="font-medium">{t("quran.copy")}</p>
+                  </TooltipContent>
+                </Tooltip>
             </TooltipProvider>
           </div>
         </div>
