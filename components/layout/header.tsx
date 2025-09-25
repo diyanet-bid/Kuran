@@ -9,10 +9,13 @@ import { BookOpen, Code, Home } from "lucide-react";
 import { useLanguage } from "@/components/language-provider";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export function Header() {
   const { t } = useLanguage();
   const pathname = usePathname();
+  const isMobile = useIsMobile();
+
   const [loading, setLoading] = useState(false);
   const [prevPath, setPrevPath] = useState(pathname);
 
@@ -36,25 +39,57 @@ export function Header() {
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link href="/" className="flex items-center space-x-2">
           <BookOpen className="h-6 w-6 text-primary dark:text-accent" />
-          <span className="font-bold text-xl text-foreground">
+          <span className="text-xl font-bold text-foreground">
             {t("hero.title")}
           </span>
         </Link>
-        <nav className="hidden md:flex flex-1 justify-center items-center space-x-8">
-          <Link
-            href="/"
-            className="flex items-center space-x-1 text-sm font-medium text-muted-foreground hover:text-primary dark:hover:text-accent transition-colors"
-          >
-            <Home className="h-4 w-4" />
-            <span>{t("nav.home")}</span>
-          </Link>
-          <Link
-            href="/quran"
-            className="flex items-center space-x-1 text-sm font-medium text-muted-foreground hover:text-primary dark:hover:text-accent transition-colors"
-          >
-            <BookOpen className="h-4 w-4" />
-            <span>{t("nav.quran")}</span>
-          </Link>
-          <Link
-            href="/developers"
-            className="flex items-center space-x-1 text-sm font-medium text-muted-foreground hover:
+
+        {!isMobile ? (
+          <>
+            <nav className="flex flex-1 items-center justify-center space-x-8">
+              <Link
+                href="/"
+                className="flex items-center space-x-1 text-sm font-medium text-muted-foreground transition-colors hover:text-primary dark:hover:text-accent"
+              >
+                <Home className="h-4 w-4" />
+                <span>{t("nav.home")}</span>
+              </Link>
+              <Link
+                href="/quran"
+                className="flex items-center space-x-1 text-sm font-medium text-muted-foreground transition-colors hover:text-primary dark:hover:text-accent"
+              >
+                <BookOpen className="h-4 w-4" />
+                <span>{t("nav.quran")}</span>
+              </Link>
+              <Link
+                href="/developers"
+                className="flex items-center space-x-1 text-sm font-medium text-muted-foreground transition-colors hover:text-primary dark:hover:text-accent"
+              >
+                <Code className="h-4 w-4" />
+                <span>{t("nav.developers")}</span>
+              </Link>
+            </nav>
+
+            <div className="flex items-center space-x-2">
+              <LanguageToggle />
+              <ThemeToggle />
+              <Button
+                asChild
+                size="sm"
+                className="bg-primary text-primary-foreground hover:bg-primary/90"
+              >
+                <Link href="/quran">{t("nav.startReading")}</Link>
+              </Button>
+            </div>
+          </>
+        ) : (
+          <div className="flex items-center space-x-2">
+            <LanguageToggle />
+            <ThemeToggle />
+            <MobileNavigation />
+          </div>
+        )}
+      </div>
+    </header>
+  );
+}

@@ -1,42 +1,37 @@
-import { NextRequest, NextResponse } from "next/server";
+import { SurahReader } from "@/components/quran/surah-reader"
+import { SurahNavigation } from "@/components/quran/surah-navigation"
+import { Header } from "@/components/layout/header"
+import { Footer } from "@/components/layout/footer"
+import { Metadata } from "next"
 
-const API_BASE_URL = process.env.DIB_KURAN_API_BASE_URL;
-const API_TOKEN = process.env.DIB_KURAN_API_TOKEN;
-
-export async function GET(request: NextRequest) {
-  if (!API_BASE_URL || !API_TOKEN) {
-    return NextResponse.json(
-      { error: "API configuration missing" },
-      { status: 500 }
-    );
+interface SurahPageProps {
+  params: {
+    id: string
   }
+}
 
-  try {
-    const response = await fetch(`${API_BASE_URL}/api/v1/chapters`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${API_TOKEN}`,
-      },
-    });
+export async function generateMetadata({ params }: SurahPageProps): Promise<Metadata> {
+  const resolvedParams = await params
+  const surahId = Number.parseInt(resolvedParams.id)
 
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      return NextResponse.json(
-        {
-          error: errorData.message || `HTTP error! status: ${response.status}`,
-        },
-        { status: response.status }
-      );
-    }
-
-    const data = await response.json();
-    return NextResponse.json(data);
-  } catch (error) {
-    console.error("API request failed:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+  return {
+    title: `${surahId}. Sure - Kuran-ı Kerim`,
+    description: `Kuran-ı Kerim'in ${surahId}. suresini okuyun.`,
   }
+}
+
+export default async function SurahPage({ params }: SurahPageProps) {
+  const resolvedParams = await params
+  const surahId = Number.parseInt(resolvedParams.id)
+
+  return (
+    <div className="min-h-screen bg-background">
+      <Header />
+      <div className="container mx-auto px-2 py-6 sm:px-4 sm:py-8">
+        <SurahNavigation currentSurah={surahId} />
+        <SurahReader surahId={surahId} />
+      </div>
+      <Footer />
+    </div>
+  )
 }

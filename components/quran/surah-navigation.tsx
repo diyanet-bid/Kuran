@@ -1,56 +1,49 @@
-"use client";
+"use client"
 
-import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import Link from "next/link";
-import { useLanguage } from "@/components/language-provider";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { useQuery } from "@tanstack/react-query";
-import { getSurahList } from "@/services/quran-api";
+import { Button } from "@/components/ui/button"
+import { ChevronLeft, ChevronRight } from "lucide-react"
+import Link from "next/link"
+import { useLanguage } from "@/components/language-provider"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { useQuery } from "@tanstack/react-query"
+import { getSurahList } from "@/services/quran-api"
+import { getOrdinal } from "@/lib/utils"
 
 interface SurahNavigationProps {
-  currentSurah: number;
+  currentSurah: number
 }
 
 export function SurahNavigation({ currentSurah }: SurahNavigationProps) {
-  const { t, language } = useLanguage();
-  const totalSurahs = 114;
+  const { t, language } = useLanguage()
+  const totalSurahs = 114
 
   const { data: surahs } = useQuery({
     queryKey: ["surahs"],
     queryFn: getSurahList,
-  });
+  })
 
-  const prevSurah = currentSurah > 1 ? currentSurah - 1 : null;
-  const nextSurah = currentSurah < totalSurahs ? currentSurah + 1 : null;
+  const prevSurah = currentSurah > 1 ? currentSurah - 1 : null
+  const nextSurah = currentSurah < totalSurahs ? currentSurah + 1 : null
 
   const getSurahName = (id: number) => {
-    const surah = surahs?.find((s) => s.id === id);
-    if (!surah) return "";
-    return language === "tr" ? surah.names.tr : surah.names.en;
-  };
+    const surah = surahs?.find((item) => item.id === id)
+    if (!surah) return ""
+    return language === "tr" ? surah.names.tr : surah.names.en
+  }
 
   return (
-    <div className="max-w-4xl mx-auto px-2 sm:px-4 mb-6">
+    <div className="mx-auto mb-6 max-w-4xl px-2 sm:px-4">
       <div className="flex flex-col gap-4">
-        {/* Title section */}
         <div className="text-center">
-          <h1 className="text-xl sm:text-2xl font-bold">
-            {t("navigation.surah")} {currentSurah}
-          </h1>
-          <p className="text-muted-foreground mt-1 text-sm sm:text-base">
-            {getSurahName(currentSurah)}
+          <h1 className="text-xl font-bold sm:text-2xl">{getSurahName(currentSurah)}</h1>
+          <p className="mt-1 text-sm text-muted-foreground sm:text-base">
+            {currentSurah}
+            {getOrdinal(currentSurah, language)} {t("navigation.surah")}
           </p>
         </div>
 
-        {/* Navigation buttons */}
         <div className="flex items-center justify-between gap-2">
-          <div className="flex-1 flex justify-start">
+          <div className="flex flex-1 justify-start">
             {prevSurah ? (
               <TooltipProvider>
                 <Tooltip>
@@ -63,7 +56,7 @@ export function SurahNavigation({ currentSurah }: SurahNavigationProps) {
                     >
                       <Link href={`/quran/surah/${prevSurah}`}>
                         <ChevronLeft className="mr-1 h-4 w-4" />
-                        <span className="hidden xs:inline mr-1">
+                        <span className="mr-1 hidden xs:inline">
                           {t("navigation.prevSurah")}
                         </span>
                       </Link>
@@ -79,13 +72,11 @@ export function SurahNavigation({ currentSurah }: SurahNavigationProps) {
             )}
           </div>
 
-          <div className="flex items-center px-3 py-2 bg-card rounded-md border">
-            <span className="text-xs sm:text-sm text-muted-foreground whitespace-nowrap">
-              {currentSurah} / 114
-            </span>
+          <div className="flex items-center rounded-md border px-3 py-2 text-xs text-muted-foreground sm:text-sm">
+            {currentSurah} / {totalSurahs}
           </div>
 
-          <div className="flex-1 flex justify-end">
+          <div className="flex flex-1 justify-end">
             {nextSurah ? (
               <TooltipProvider>
                 <Tooltip>
@@ -97,7 +88,7 @@ export function SurahNavigation({ currentSurah }: SurahNavigationProps) {
                       className="w-full sm:w-auto"
                     >
                       <Link href={`/quran/surah/${nextSurah}`}>
-                        <span className="hidden xs:inline ml-1">
+                        <span className="ml-1 hidden xs:inline">
                           {t("navigation.nextSurah")}
                         </span>
                         <ChevronRight className="ml-1 h-4 w-4" />
@@ -116,5 +107,5 @@ export function SurahNavigation({ currentSurah }: SurahNavigationProps) {
         </div>
       </div>
     </div>
-  );
+  )
 }
