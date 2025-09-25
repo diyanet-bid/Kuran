@@ -49,21 +49,27 @@ export function Header() {
             <nav className="flex flex-1 items-center justify-center space-x-8">
               <Link
                 href="/"
-                className="flex items-center space-x-1 text-sm font-medium text-muted-foreground transition-colors hover:text-primary dark:hover:text-accent"
+                className={`flex items-center space-x-1 text-sm font-medium transition-colors hover:text-primary dark:hover:text-accent ${
+                  pathname === "/" ? "text-primary dark:text-accent font-bold" : "text-muted-foreground"
+                }`}
               >
                 <Home className="h-4 w-4" />
                 <span>{t("nav.home")}</span>
               </Link>
               <Link
                 href="/quran"
-                className="flex items-center space-x-1 text-sm font-medium text-muted-foreground transition-colors hover:text-primary dark:hover:text-accent"
+                className={`flex items-center space-x-1 text-sm font-medium transition-colors hover:text-primary dark:hover:text-accent ${
+                  pathname.startsWith("/quran") ? "text-primary dark:text-accent font-bold" : "text-muted-foreground"
+                }`}
               >
                 <BookOpen className="h-4 w-4" />
                 <span>{t("nav.quran")}</span>
               </Link>
               <Link
                 href="/developers"
-                className="flex items-center space-x-1 text-sm font-medium text-muted-foreground transition-colors hover:text-primary dark:hover:text-accent"
+                className={`flex items-center space-x-1 text-sm font-medium transition-colors hover:text-primary dark:hover:text-accent ${
+                  pathname.startsWith("/developers") ? "text-primary dark:text-accent font-bold" : "text-muted-foreground"
+                }`}
               >
                 <Code className="h-4 w-4" />
                 <span>{t("nav.developers")}</span>
