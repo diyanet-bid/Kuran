@@ -10,6 +10,7 @@ import { getPageData } from "@/services/quran-api"
 import { VerseComponent } from "./verse-component"
 import { LoadingSpinner } from "@/components/ui/loading-spinner"
 import { useLanguage } from "@/components/language-provider"
+import { toast } from "@/hooks/use-toast"
 
 interface QuranReaderProps {
   pageNumber: number
@@ -80,7 +81,7 @@ export function QuranReader({ pageNumber }: QuranReaderProps) {
       .join("\n\n")
 
     navigator.clipboard.writeText(textToCopy).then(() => {
-      alert("Tüm sayfa kopyalandı!")
+      toast({ title: t("quran.copiedAll") })
     })
   }
 
@@ -110,6 +111,9 @@ export function QuranReader({ pageNumber }: QuranReaderProps) {
               className="flex-1 border-accent/30 bg-card/50 hover:bg-accent/10 hover:text-accent sm:flex-none"
             >
               {isBookmarked ? <BookmarkCheck className="h-4 w-4" /> : <Bookmark className="h-4 w-4" />}
+              <span className="ml-2 hidden xs:inline">
+                {isBookmarked ? t("quran.bookmarked") : t("quran.bookmark")}
+              </span>
             </Button>
             <Button
               variant="outline"
@@ -118,7 +122,7 @@ export function QuranReader({ pageNumber }: QuranReaderProps) {
               className="flex-1 border-accent/30 bg-card/50 hover:bg-accent/10 hover:text-accent sm:flex-none"
             >
               <Copy className="h-4 w-4" />
-              <span className="ml-2 hidden xs:inline">Tümünü Kopyala</span>
+              <span className="ml-2 hidden xs:inline">{t("quran.copyAll")}</span>
             </Button>
           </div>
         </CardHeader>
