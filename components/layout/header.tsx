@@ -10,6 +10,22 @@ import { useLanguage } from "@/components/language-provider";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import clsx from "clsx";
+
+function navLinkClass(pathname: string, target: string | RegExp) {
+  const isActive =
+    typeof target === "string"
+      ? pathname === target
+      : target instanceof RegExp
+      ? target.test(pathname)
+      : false;
+  return clsx(
+    "flex items-center space-x-1 text-sm font-medium transition-colors hover:text-primary dark:hover:text-accent",
+    isActive
+      ? "text-primary dark:text-accent font-bold"
+      : "text-muted-foreground"
+  );
+}
 
 export function Header() {
   const { t } = useLanguage();
@@ -49,27 +65,21 @@ export function Header() {
             <nav className="flex flex-1 items-center justify-center space-x-8">
               <Link
                 href="/"
-                className={`flex items-center space-x-1 text-sm font-medium transition-colors hover:text-primary dark:hover:text-accent ${
-                  pathname === "/" ? "text-primary dark:text-accent font-bold" : "text-muted-foreground"
-                }`}
+                className={navLinkClass(pathname, "/")}
               >
                 <Home className="h-4 w-4" />
                 <span>{t("nav.home")}</span>
               </Link>
               <Link
                 href="/quran"
-                className={`flex items-center space-x-1 text-sm font-medium transition-colors hover:text-primary dark:hover:text-accent ${
-                  pathname.startsWith("/quran") ? "text-primary dark:text-accent font-bold" : "text-muted-foreground"
-                }`}
+                className={navLinkClass(pathname, /^\/quran/)}
               >
                 <BookOpen className="h-4 w-4" />
                 <span>{t("nav.quran")}</span>
               </Link>
               <Link
                 href="/developers"
-                className={`flex items-center space-x-1 text-sm font-medium transition-colors hover:text-primary dark:hover:text-accent ${
-                  pathname.startsWith("/developers") ? "text-primary dark:text-accent font-bold" : "text-muted-foreground"
-                }`}
+                className={navLinkClass(pathname, /^\/developers/)}
               >
                 <Code className="h-4 w-4" />
                 <span>{t("nav.developers")}</span>
