@@ -168,7 +168,7 @@ export function QuranNavigation({ currentPage }: QuranNavigationProps) {
           disabled={currentPage <= 1}
           className="flex-none border-2 border-border"
         >
-          <Link href={pageHref(currentPage - 1)}>
+          <Link href={pageHref(currentPage - 1)} className={`${currentPage <= 1 ? 'pointer-events-none opacity-40' : ''}`}>
             <ChevronLeft className="h-4 w-4" />
             <span className="ml-1 hidden xs:inline">{t("quran.previous")}</span>
           </Link>
@@ -187,7 +187,7 @@ export function QuranNavigation({ currentPage }: QuranNavigationProps) {
           disabled={currentPage >= 604}
           className="flex-none border-2 border-border"
         >
-          <Link href={pageHref(currentPage + 1)}>
+          <Link href={pageHref(currentPage + 1)} className={`${currentPage >= 604 ? 'pointer-events-none opacity-40' : ''}`}>
             <span className="mr-1 hidden xs:inline">{t("quran.next")}</span>
             <ChevronRight className="h-4 w-4" />
           </Link>
