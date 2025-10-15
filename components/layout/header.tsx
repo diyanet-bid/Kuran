@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { LanguageToggle } from "@/components/language-toggle";
 import { MobileNavigation } from "@/components/layout/mobile-navigation";
-import { BookOpen, Code, Home } from "lucide-react";
+import { BookOpen, Code, Home, BookmarkCheck } from "lucide-react";
 import { useLanguage } from "@/components/language-provider";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -44,29 +44,29 @@ export function Header() {
           </span>
         </Link>
 
-        {!isMobile ? (
+        <div className="hidden md:flex flex-1 justify-between items-center ml-8">
           <>
-            <nav className="flex flex-1 items-center justify-center space-x-8">
+            <nav className="flex flex-1 items-center justify-center space-x-4 lg:space-x-6 xl:space-x-8">
               <Link
                 href="/"
                 className="flex items-center space-x-1 text-sm font-medium text-muted-foreground transition-colors hover:text-primary dark:hover:text-accent"
               >
                 <Home className="h-4 w-4" />
-                <span>{t("nav.home")}</span>
+                <span className="hidden lg:inline">{t("nav.home")}</span>
               </Link>
               <Link
                 href="/quran"
                 className="flex items-center space-x-1 text-sm font-medium text-muted-foreground transition-colors hover:text-primary dark:hover:text-accent"
               >
                 <BookOpen className="h-4 w-4" />
-                <span>{t("nav.quran")}</span>
+                <span className="hidden lg:inline">{t("nav.quran")}</span>
               </Link>
               <Link
                 href="/developers"
                 className="flex items-center space-x-1 text-sm font-medium text-muted-foreground transition-colors hover:text-primary dark:hover:text-accent"
               >
                 <Code className="h-4 w-4" />
-                <span>{t("nav.developers")}</span>
+                <span className="hidden lg:inline">{t("nav.developers")}</span>
               </Link>
             </nav>
 
@@ -76,19 +76,19 @@ export function Header() {
               <Button
                 asChild
                 size="sm"
-                className="bg-primary text-primary-foreground hover:bg-primary/90"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 hidden md:flex"
               >
                 <Link href="/quran">{t("nav.startReading")}</Link>
               </Button>
             </div>
           </>
-        ) : (
-          <div className="flex items-center space-x-2">
-            <LanguageToggle />
-            <ThemeToggle />
-            <MobileNavigation />
-          </div>
-        )}
+        </div>
+
+        <div className="flex md:hidden items-center space-x-2">
+          <LanguageToggle />
+          <ThemeToggle />
+          <MobileNavigation />
+        </div>
       </div>
     </header>
   );
