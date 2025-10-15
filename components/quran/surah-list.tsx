@@ -96,7 +96,7 @@ export function SurahList() {
         <Card className="text-center bg-card/80 border-accent/20">
           <CardContent className="pt-6">
             <div className="text-3xl font-bold text-accent mb-2">
-              {filteredSurahs.reduce((total, surah) => total + surah.verses_count, 0)}
+              {filteredSurahs.reduce((total, surah) => total + surah.verses_count, 0).toLocaleString()}
             </div>
             <div className="text-sm text-muted-foreground">{t("surahs.totalVerses")}</div>
           </CardContent>
@@ -179,8 +179,10 @@ export function SurahList() {
                   <h3 className="text-2xl font-arabic text-accent mb-2">{modalSurah.names.arabic}</h3>
                   <p className="text-muted-foreground mb-2">{language === "tr" ? modalSurah.description.tr : modalSurah.description.en}</p>
                   <div className="flex items-center justify-center space-x-4 mb-2">
+                    <BookOpen className="h-4 w-4" />
                     <span>{modalSurah.verses_count} {t("quran.verses")}</span>
                     <span>•</span>
+                    <MapPin className="h-4 w-4" />
                     <span>{modalSurah.revelation_place === "mecca" ? t("surahs.mecca") : t("surahs.medina")}</span>
                   </div>
                 </div>
