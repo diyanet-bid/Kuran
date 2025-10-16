@@ -86,7 +86,7 @@ export function QuickStart() {
                     <Button 
                       variant="outline" 
                       size="sm"
-                      onClick={() => window.open('https://api.diyanet.gov.tr', '_blank')}
+                      onClick={() => window.open('https://acikkaynakkuran-dev.diyanet.gov.tr/', '_blank')}
                       className="border-border"
                     >
                       <ExternalLink className="h-4 w-4 mr-2" />
