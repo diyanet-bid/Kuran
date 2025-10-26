@@ -77,7 +77,7 @@ export function VerseComponent({ verse, showTranslation, translationLanguage }: 
                     variant="ghost"
                     size="sm"
                     onClick={() => setIsPlaying((prev) => !prev)}
-                    className="hover:bg-primary/10 hover:text-primary p-2"
+                    className="hover:bg-primary/10 hover:text-primary p-2 dark:hover:text-accent"
                   >
                     {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
                   </Button>
@@ -96,7 +96,7 @@ export function VerseComponent({ verse, showTranslation, translationLanguage }: 
                     className="hover:bg-primary/10 hover:text-primary p-2 dark:hover:text-accent"
                   >
                     {isBookmarked ? (
-                      <BookmarkCheck className="h-4 w-4 text-primary" />
+                      <BookmarkCheck className="h-4 w-4" />
                     ) : (
                       <Bookmark className="h-4 w-4" />
                     )}
@@ -113,7 +113,7 @@ export function VerseComponent({ verse, showTranslation, translationLanguage }: 
                     variant="ghost"
                     size="sm"
                     onClick={handleCopy}
-                    className="hover:bg-primary/10 hover:text-primary"
+                    className="hover:bg-primary/10 hover:text-primary dark:hover:text-accent"
                   >
                     <Copy className="mr-1 h-4 w-4" />
                     <span>{copied ? `${t("quran.copied")}!` : t("quran.copy")}</span>
