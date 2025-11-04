@@ -1,27 +1,31 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { createContext, useContext, useState, useEffect } from "react"
+import type React from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 interface LanguageContextType {
-  language: string
-  setLanguage: (lang: string) => void
-  t: (key: string) => string
+  language: string;
+  setLanguage: (lang: string) => void;
+  t: (key: string) => string;
 }
 
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
+const LanguageContext = createContext<LanguageContextType | undefined>(
+  undefined
+);
 
 const translations = {
   tr: {
     // Header
     "nav.home": "Ana Sayfa",
     "nav.quran": "Kur'an-ı Kerim",
+    "nav.bookmarks": "Kayıtlı Ayetlerim",
     "nav.developers": "Geliştiriciler",
     "nav.startReading": "Okumaya Başla",
 
     // Surah List
     "surahs.title": "Sureler",
-    "surahs.subtitle": "Kur'an-ı Kerim'in 114 suresine göz atın ve okumak istediğinizi seçin",
+    "surahs.subtitle":
+      "Kur'an-ı Kerim'in 114 suresine göz atın ve okumak istediğinizi seçin",
     "surahs.searchPlaceholder": "Sure adı veya numarası ile ara...",
     "surahs.totalSurahs": "Toplam Sure",
     "surahs.showing": "Gösterilen",
@@ -31,7 +35,8 @@ const translations = {
     "surahs.readSurah": "Sureyi Oku",
     "surahs.readSurahDetails": "Sure Detayları",
     "surahs.noResults": "Sonuç bulunamadı",
-    "surahs.noResultsDesc": "Arama kriterlerinize uygun sure bulunamadı. Farklı kelimeler deneyin.",
+    "surahs.noResultsDesc":
+      "Arama kriterlerinize uygun sure bulunamadı. Farklı kelimeler deneyin.",
     "surahs.clearSearch": "Aramayı Temizle",
 
     // Quran Reader
@@ -52,7 +57,8 @@ const translations = {
     "quran.of": "/",
     "quran.verses": "ayet",
     "quran.loading": "Yükleniyor...",
-    "quran.error": "Sayfa verisi yüklenirken hata oluştu. Lütfen tekrar deneyin.",
+    "quran.error":
+      "Sayfa verisi yüklenirken hata oluştu. Lütfen tekrar deneyin.",
     "quran.pageNotFound": "Sayfa bulunamadı.",
     "quran.surahNotFound": "Sure bulunamadı.",
 
@@ -64,12 +70,15 @@ const translations = {
     "dev.welcome.modernTechDesc":
       "Next.js 15, TypeScript, Tailwind CSS ve diğer son teknolojiler ile geliştirilmiştir.",
     "dev.welcome.purposeDriven": "Amaç Odaklı",
-    "dev.welcome.purposeDrivenDesc": "Her kod satırı Kur'an-ı Kerim'i daha erişilebilir kılma amacına hizmet eder.",
+    "dev.welcome.purposeDrivenDesc":
+      "Her kod satırı Kur'an-ı Kerim'i daha erişilebilir kılma amacına hizmet eder.",
     "dev.welcome.globalImpact": "Küresel Etki",
-    "dev.welcome.globalImpactDesc": "Katkılarınız dünya çapında milyonlarca Müslümana fayda sağlayacaktır.",
+    "dev.welcome.globalImpactDesc":
+      "Katkılarınız dünya çapında milyonlarca Müslümana fayda sağlayacaktır.",
 
     "dev.quickStart.title": "Hızlı Başlangıç",
-    "dev.quickStart.subtitle": "Projeyi yerel ortamınızda birkaç dakikada çalıştırın.",
+    "dev.quickStart.subtitle":
+      "Projeyi yerel ortamınızda birkaç dakikada çalıştırın.",
     "dev.quickStart.setupInstructions": "Kurulum Talimatları",
     "dev.quickStart.step1": "Depoyu klonlayın",
     "dev.quickStart.step2": "Bağımlılıkları yükleyin",
@@ -79,20 +88,25 @@ const translations = {
     "dev.quickStart.downloadProject": "Projeyi İndir",
     "dev.quickStart.watchVideo": "Kurulum Videosunu İzle",
     "dev.quickStart.envSetup": "Ortam Değişkenleri Kurulumu",
-    "dev.quickStart.envSetupDesc": "API erişimi için gerekli ortam değişkenlerini ayarlayın",
+    "dev.quickStart.envSetupDesc":
+      "API erişimi için gerekli ortam değişkenlerini ayarlayın",
     "dev.quickStart.createEnvFile": ".env.local dosyası oluşturun",
-    "dev.quickStart.envContent": "Aşağıdaki içeriği .env.local dosyasına ekleyin:",
+    "dev.quickStart.envContent":
+      "Aşağıdaki içeriği .env.local dosyasına ekleyin:",
     "dev.quickStart.getApiCredentials": "API Bilgilerini Al",
-    "dev.quickStart.getApiCredentialsDesc": "API erişim bilgilerini almak için aşağıdaki siteyi ziyaret edin",
+    "dev.quickStart.getApiCredentialsDesc":
+      "API erişim bilgilerini almak için aşağıdaki siteyi ziyaret edin",
     "dev.quickStart.dockerOption": "Docker ile Çalıştırma",
-    "dev.quickStart.dockerOptionDesc": "Alternatif olarak Docker kullanarak projeyi çalıştırabilirsiniz",
+    "dev.quickStart.dockerOptionDesc":
+      "Alternatif olarak Docker kullanarak projeyi çalıştırabilirsiniz",
     "dev.quickStart.dockerCommand": "Docker ile başlatın",
     "dev.quickStart.dockerStart": "Docker Compose ile başlatın",
     "dev.quickStart.dockerOpenBrowser": "Tarayıcınızı açın",
     "dev.quickStart.dockerInstallGuide": "Docker Kurulum Rehberi",
 
     "dev.contribute.title": "Nasıl Katkıda Bulunulur",
-    "dev.contribute.subtitle": "Her seviyeden geliştiricinin katkılarını memnuniyetle karşılıyoruz.",
+    "dev.contribute.subtitle":
+      "Her seviyeden geliştiricinin katkılarını memnuniyetle karşılıyoruz.",
     "dev.contribute.process": "Geliştirme Süreci",
     "dev.contribute.processDesc":
       "1. GitHub'da depoyu fork edin\n2. Özellik dalı oluşturun\n3. Testlerle birlikte değişikliklerinizi yapın\n4. Pull request gönderin\n5. Kod incelemesi ve birleştirme",
@@ -102,15 +116,19 @@ const translations = {
     "dev.contribute.codeOfConduct": "Davranış Kuralları",
     "dev.contribute.helpAreas": "Katkı sağlayabileceğiniz alanlar",
     "dev.contribute.frontend": "Frontend Geliştirme",
-    "dev.contribute.frontendDesc": "React bileşenleri, UI/UX iyileştirmeleri, responsive tasarım, kullanıcı deneyimi geliştirmeleri, performans optimizasyonu, erişilebilirlik iyileştirmeleri",
+    "dev.contribute.frontendDesc":
+      "React bileşenleri, UI/UX iyileştirmeleri, responsive tasarım, kullanıcı deneyimi geliştirmeleri, performans optimizasyonu, erişilebilirlik iyileştirmeleri",
     "dev.contribute.backend": "Backend Önerileri",
-    "dev.contribute.backendDesc": "Yeni API rotaları önerileri, mevcut rotalar için iyileştirme talepleri, veri yapısı önerileri, performans iyileştirme önerileri",
+    "dev.contribute.backendDesc":
+      "Yeni API rotaları önerileri, mevcut rotalar için iyileştirme talepleri, veri yapısı önerileri, performans iyileştirme önerileri",
     "dev.contribute.translations": "Çeviri ve Erişilebilirlik",
-    "dev.contribute.translationsDesc": "Yeni diller ekleme, mevcut çevirileri iyileştirme, arayüz erişilebilirlik güncelleştirmeleri, İslam alemi için kapsayıcı dil desteği",
+    "dev.contribute.translationsDesc":
+      "Yeni diller ekleme, mevcut çevirileri iyileştirme, arayüz erişilebilirlik güncelleştirmeleri, İslam alemi için kapsayıcı dil desteği",
     "dev.contribute.viewOnGithub": "GitHub'da Görüntüle",
 
     "dev.community.title": "Topluluğumuza Katılın",
-    "dev.community.subtitle": "Dünyanın dört bir yanından geliştirici ve katkıda bulunanlarla bağlantı kurun.",
+    "dev.community.subtitle":
+      "Dünyanın dört bir yanından geliştirici ve katkıda bulunanlarla bağlantı kurun.",
     "dev.community.github": "GitHub",
     "dev.community.githubDesc": "Sorunlar, tartışmalar ve kod katkıları.",
     "dev.community.email": "E-posta",
@@ -122,7 +140,8 @@ const translations = {
     "dev.community.soon": "Topluluk kanalları yakında",
 
     "dev.resources.title": "Geliştirici Kaynakları",
-    "dev.resources.subtitle": "Projeyi anlamak ve katkıda bulunmak için ihtiyacınız olan her şey.",
+    "dev.resources.subtitle":
+      "Projeyi anlamak ve katkıda bulunmak için ihtiyacınız olan her şey.",
     "dev.resources.techStack": "Teknoloji Yığını",
     "dev.resources.framework": "Framework",
     "dev.resources.language": "Dil",
@@ -131,11 +150,14 @@ const translations = {
     "dev.resources.ui": "UI",
     "dev.resources.audio": "Ses",
     "dev.resources.apiDocs": "API Dokümantasyonu",
-    "dev.resources.apiDocsDesc": "Kur'an veri kaynaklarıyla entegrasyon için kapsamlı API dokümantasyonu.",
+    "dev.resources.apiDocsDesc":
+      "Kur'an veri kaynaklarıyla entegrasyon için kapsamlı API dokümantasyonu.",
     "dev.resources.designSystem": "Tasarım Sistemi",
-    "dev.resources.designSystemDesc": "Uygulama boyunca kullanılan tasarım kılavuzları, bileşenler ve desenler.",
+    "dev.resources.designSystemDesc":
+      "Uygulama boyunca kullanılan tasarım kılavuzları, bileşenler ve desenler.",
     "dev.resources.documentation": "Dokümantasyon",
-    "dev.resources.documentationDesc": "Geliştiriciler ve katkıda bulunanlar için detaylı dokümantasyon.",
+    "dev.resources.documentationDesc":
+      "Geliştiriciler ve katkıda bulunanlar için detaylı dokümantasyon.",
     "dev.resources.apiReference": "API Referansı (Yakında)",
     "dev.resources.dataSchema": "Veri Şeması (Yakında)",
     "dev.resources.componentLibrary": "Bileşen Kütüphanesi (Yakında)",
@@ -144,9 +166,11 @@ const translations = {
     "dev.resources.architecture": "Mimari Genel Bakış (Yakında)",
     "dev.resources.contact": "İletişim ve Destek",
     "dev.resources.technicalQuestions": "Teknik Sorular",
-    "dev.resources.technicalQuestionsDesc": "Teknik sorular ve özellik istekleri için GitHub Discussions kullanın.",
+    "dev.resources.technicalQuestionsDesc":
+      "Teknik sorular ve özellik istekleri için GitHub Discussions kullanın.",
     "dev.resources.bugReports": "Hata Raporları",
-    "dev.resources.bugReportsDesc": "Hataları detaylı yeniden üretim adımlarıyla GitHub Issues üzerinden bildirin.",
+    "dev.resources.bugReportsDesc":
+      "Hataları detaylı yeniden üretim adımlarıyla GitHub Issues üzerinden bildirin.",
     "dev.resources.generalInquiries": "Genel Sorular",
     "dev.resources.generalInquiriesDesc": "Bize şu adresten e-posta gönderin:",
 
@@ -168,23 +192,31 @@ const translations = {
     "hero.stats.surahs": "Sure",
     "hero.stats.pages": "Sayfa",
     "hero.stats.verses": "Ayet",
-    "hero.supportedBy": "Diyanet İşleri Başkanlığı desteğinde geliştirilmektedir",
+    "hero.supportedBy":
+      "Diyanet İşleri Başkanlığı desteğinde geliştirilmektedir",
 
     // Features
     "features.title": "Kullanışlı Özellikler",
-    "features.subtitle": "Kur'an-ı Kerim okuma deneyiminizi iyileştirmek için tasarlanmış özellikler",
+    "features.subtitle":
+      "Kur'an-ı Kerim okuma deneyiminizi iyileştirmek için tasarlanmış özellikler",
     "features.typography.title": "Rahat Okuma",
-    "features.typography.desc": "Arapça metinler için optimize edilmiş fontlar ile göz yormayan okuma deneyimi",
+    "features.typography.desc":
+      "Arapça metinler için optimize edilmiş fontlar ile göz yormayan okuma deneyimi",
     "features.audio.title": "Sesli Okuma",
-    "features.audio.desc": "Hafızlardan sesli okuma ile ayetleri dinleyebilme imkanı",
+    "features.audio.desc":
+      "Hafızlardan sesli okuma ile ayetleri dinleyebilme imkanı",
     "features.translation.title": "Meal Desteği",
-    "features.translation.desc": "Türkçe ve İngilizce meal seçenekleri ile anlam desteği",
+    "features.translation.desc":
+      "Türkçe ve İngilizce meal seçenekleri ile anlam desteği",
     "features.bookmark.title": "İşaretleme",
-    "features.bookmark.desc": "Ayetleri işaretleyip kaldığınız yerden devam edebilme",
+    "features.bookmark.desc":
+      "Ayetleri işaretleyip kaldığınız yerden devam edebilme",
     "features.darkMode.title": "Karanlık Mod",
-    "features.darkMode.desc": "Gece okuma için göz dostu karanlık tema seçeneği",
+    "features.darkMode.desc":
+      "Gece okuma için göz dostu karanlık tema seçeneği",
     "features.openSource.title": "Açık Kaynak",
-    "features.openSource.desc": "Topluluk tarafından geliştirilen, herkesin katkıda bulunabileceği proje",
+    "features.openSource.desc":
+      "Topluluk tarafından geliştirilen, herkesin katkıda bulunabileceği proje",
 
     // Community
     "community.badge": "Topluluk Odaklı Geliştirme",
@@ -194,13 +226,17 @@ const translations = {
       "Dijital Kur'an uygulamalarının geleceğini inşa etmemize yardım edin. Açık kaynak, işbirlikçi ve etkili.",
     "community.contribute": "Katkıda Bulunmaya Başla",
     "community.cards.openSource.title": "Açık Kaynak",
-    "community.cards.openSource.description": "GitHub'da tamamen açık kaynak. Fork edin, katkıda bulunun ve kendinize uyarlayın.",
+    "community.cards.openSource.description":
+      "GitHub'da tamamen açık kaynak. Fork edin, katkıda bulunun ve kendinize uyarlayın.",
     "community.cards.modernTech.title": "Modern Teknoloji",
-    "community.cards.modernTech.description": "Next.js 15, TypeScript ve modern web teknolojileri ile geliştirilmiştir.",
+    "community.cards.modernTech.description":
+      "Next.js 15, TypeScript ve modern web teknolojileri ile geliştirilmiştir.",
     "community.cards.globalImpact.title": "Küresel Etki",
-    "community.cards.globalImpact.description": "Katkılarınızla dünya çapında milyonlarca Müslümana hizmet edin.",
+    "community.cards.globalImpact.description":
+      "Katkılarınızla dünya çapında milyonlarca Müslümana hizmet edin.",
     "community.cards.activeCommunity.title": "Aktif Topluluk",
-    "community.cards.activeCommunity.description": "Tartışmalar ve destek için Discord ve Telegram topluluklarımıza katılın.",
+    "community.cards.activeCommunity.description":
+      "Tartışmalar ve destek için Discord ve Telegram topluluklarımıza katılın.",
     "community.stats.stars": "GitHub Yıldızları",
     "community.stats.forks": "Forklar",
     "community.stats.contributors": "Katkıda Bulunanlar",
@@ -209,7 +245,8 @@ const translations = {
     // CTA
     "cta.title": "Kur'an Yolculuğunuza",
     "cta.subtitle": "Başlamaya Hazır mısınız?",
-    "cta.description": "Günlük Kur'an okuma rutininiz için uygulamamızı kullanan binlerce Müslümana katılın.",
+    "cta.description":
+      "Günlük Kur'an okuma rutininiz için uygulamamızı kullanan binlerce Müslümana katılın.",
     "cta.startNow": "Şimdi Okumaya Başla",
     "cta.mobileApp": "Mobil Uygulama (Yakında)",
     "cta.free": "Ücretsiz kullanım",
@@ -220,7 +257,8 @@ const translations = {
     "cta.supportedByDesc": "desteğinde geliştirilmektedir",
 
     // Footer
-    "footer.description": "Modern web teknolojileri ile geliştirilmiş açık kaynaklı dijital Kur'an-ı Kerim uygulaması",
+    "footer.description":
+      "Modern web teknolojileri ile geliştirilmiş açık kaynaklı dijital Kur'an-ı Kerim uygulaması",
     "footer.application": "Uygulama",
     "footer.readQuran": "Kur'an-ı Kerim Oku",
     "footer.browsePages": "Sayfalara Göz At",
@@ -240,17 +278,58 @@ const translations = {
     "navigation.prevSurah": "Önceki Sure",
     "navigation.nextSurah": "Sonraki Sure",
     "navigation.surah": "Sure",
+
+    // Notes
+    "notes.addNote": "Not Ekle",
+    "notes.editNote": "Notu Düzenle",
+    "notes.personalNote": "Kişisel Notum",
+    "notes.placeholder":
+      "Bu ayet hakkındaki düşüncelerinizi, öğrendiklerinizi veya hatırlatmalarınızı yazın...",
+    "notes.maxLength": "Maksimum uzunluk",
+    "notes.characters": "karakter",
+    "notes.delete": "Sil",
+    "notes.saved": "Not kaydedildi!",
+    "notes.savedDescription": "Notunuz başarıyla kaydedildi.",
+    "notes.removed": "Not silindi!",
+    "notes.removedDescription": "Notunuz başarıyla silindi.",
+    "notes.error": "Hata oluştu",
+    "notes.errorDescription": "Not kaydedilirken bir hata oluştu.",
+    "notes.showMore": "Daha fazla göster",
+    "notes.showLess": "Daha az göster",
+
+    // Bookmarks
+    "bookmarks.title": "Kayıtlı Ayetlerim",
+    "bookmarks.description":
+      "İşaretlediğiniz ayetler ve notlarınız burada görüntülenir.",
+    "bookmarks.withNotes": "Notlu Ayetler",
+    "bookmarks.withoutNotes": "Notsuz Ayetler",
+    "bookmarks.addedOn": "Eklenme tarihi",
+    "bookmarks.lastUpdated": "Son güncelleme",
+    "bookmarks.removed": "İşaret kaldırıldı!",
+    "bookmarks.removedDescription": "Ayet işaretlerden kaldırıldı.",
+    "bookmarks.addedDescription": "Ayet işaretlendi.",
+    "bookmarks.empty.title": "Henüz kayıtlı ayetiniz yok",
+    "bookmarks.empty.description":
+      "Ayetleri işaretleyerek buraya kaydedebilirsiniz.",
+    "bookmarks.empty.startReading": "Okumaya Başla",
+
+    // Common
+    "common.cancel": "İptal",
+    "common.save": "Kaydet",
+    "common.saving": "Kaydediliyor...",
   },
   en: {
     // Header
     "nav.home": "Home",
     "nav.quran": "Quran",
+    "nav.bookmarks": "My Bookmarks",
     "nav.developers": "Developers",
     "nav.startReading": "Start Reading",
 
     // Surah List
     "surahs.title": "Surahs",
-    "surahs.subtitle": "Browse all 114 chapters of the Holy Quran and choose the one you want to read",
+    "surahs.subtitle":
+      "Browse all 114 chapters of the Holy Quran and choose the one you want to read",
     "surahs.searchPlaceholder": "Search by surah name or number...",
     "surahs.totalSurahs": "Total Surahs",
     "surahs.showing": "Showing",
@@ -260,7 +339,8 @@ const translations = {
     "surahs.readSurah": "Read Surah",
     "surahs.readSurahDetails": "Surah Details",
     "surahs.noResults": "No results found",
-    "surahs.noResultsDesc": "No surahs match your search criteria. Try different keywords.",
+    "surahs.noResultsDesc":
+      "No surahs match your search criteria. Try different keywords.",
     "surahs.clearSearch": "Clear Search",
 
     // Quran Reader
@@ -293,12 +373,15 @@ const translations = {
     "dev.welcome.modernTechDesc":
       "Built with Next.js 15, TypeScript, Tailwind CSS and other cutting-edge technologies.",
     "dev.welcome.purposeDriven": "Purpose Driven",
-    "dev.welcome.purposeDrivenDesc": "Every line of code serves the purpose of making the Quran more accessible.",
+    "dev.welcome.purposeDrivenDesc":
+      "Every line of code serves the purpose of making the Quran more accessible.",
     "dev.welcome.globalImpact": "Global Impact",
-    "dev.welcome.globalImpactDesc": "Your contributions will benefit millions of Muslims worldwide.",
+    "dev.welcome.globalImpactDesc":
+      "Your contributions will benefit millions of Muslims worldwide.",
 
     "dev.quickStart.title": "Quick Start",
-    "dev.quickStart.subtitle": "Get the project running locally in just a few minutes.",
+    "dev.quickStart.subtitle":
+      "Get the project running locally in just a few minutes.",
     "dev.quickStart.setupInstructions": "Setup Instructions",
     "dev.quickStart.step1": "Clone the repository",
     "dev.quickStart.step2": "Install dependencies",
@@ -308,20 +391,25 @@ const translations = {
     "dev.quickStart.downloadProject": "Download Project",
     "dev.quickStart.watchVideo": "Watch Setup Video",
     "dev.quickStart.envSetup": "Environment Variables Setup",
-    "dev.quickStart.envSetupDesc": "Set up required environment variables for API access",
+    "dev.quickStart.envSetupDesc":
+      "Set up required environment variables for API access",
     "dev.quickStart.createEnvFile": "Create .env.local file",
-    "dev.quickStart.envContent": "Add the following content to your .env.local file:",
+    "dev.quickStart.envContent":
+      "Add the following content to your .env.local file:",
     "dev.quickStart.getApiCredentials": "Get API Credentials",
-    "dev.quickStart.getApiCredentialsDesc": "Visit the following site to get API access credentials",
+    "dev.quickStart.getApiCredentialsDesc":
+      "Visit the following site to get API access credentials",
     "dev.quickStart.dockerOption": "Run with Docker",
-    "dev.quickStart.dockerOptionDesc": "Alternatively, you can run the project using Docker",
+    "dev.quickStart.dockerOptionDesc":
+      "Alternatively, you can run the project using Docker",
     "dev.quickStart.dockerCommand": "Start with Docker",
     "dev.quickStart.dockerStart": "Start with Docker Compose",
     "dev.quickStart.dockerOpenBrowser": "Open your browser",
     "dev.quickStart.dockerInstallGuide": "Docker Installation Guide",
 
     "dev.contribute.title": "How to Contribute",
-    "dev.contribute.subtitle": "We welcome contributions from developers of all skill levels.",
+    "dev.contribute.subtitle":
+      "We welcome contributions from developers of all skill levels.",
     "dev.contribute.process": "Development Process",
     "dev.contribute.processDesc":
       "1. Fork the repository on GitHub\n2. Create a feature branch\n3. Make your changes with tests\n4. Submit a pull request\n5. Code review and merge",
@@ -331,15 +419,19 @@ const translations = {
     "dev.contribute.codeOfConduct": "Code of Conduct",
     "dev.contribute.helpAreas": "Areas Where You Can Contribute",
     "dev.contribute.frontend": "Frontend Development",
-    "dev.contribute.frontendDesc": "React components, UI/UX improvements, responsive design, user experience enhancements, performance optimization, accessibility improvements",
+    "dev.contribute.frontendDesc":
+      "React components, UI/UX improvements, responsive design, user experience enhancements, performance optimization, accessibility improvements",
     "dev.contribute.backend": "Backend Suggestions",
-    "dev.contribute.backendDesc": "New API route suggestions, improvement requests for existing routes, data structure suggestions, performance improvement recommendations",
+    "dev.contribute.backendDesc":
+      "New API route suggestions, improvement requests for existing routes, data structure suggestions, performance improvement recommendations",
     "dev.contribute.translations": "Translation & Accessibility",
-    "dev.contribute.translationsDesc": "Adding new languages, improving existing translations, interface accessibility updates, inclusive language support for the Islamic world",
+    "dev.contribute.translationsDesc":
+      "Adding new languages, improving existing translations, interface accessibility updates, inclusive language support for the Islamic world",
     "dev.contribute.viewOnGithub": "View on GitHub",
 
     "dev.community.title": "Join Our Community",
-    "dev.community.subtitle": "Connect with fellow developers and contributors from around the world.",
+    "dev.community.subtitle":
+      "Connect with fellow developers and contributors from around the world.",
     "dev.community.github": "GitHub",
     "dev.community.githubDesc": "Issues, discussions, and code contributions.",
     "dev.community.email": "Email",
@@ -351,7 +443,8 @@ const translations = {
     "dev.community.soon": "Community channels coming soon.",
 
     "dev.resources.title": "Developer Resources",
-    "dev.resources.subtitle": "Everything you need to understand and contribute to the project.",
+    "dev.resources.subtitle":
+      "Everything you need to understand and contribute to the project.",
     "dev.resources.techStack": "Tech Stack",
     "dev.resources.framework": "Framework",
     "dev.resources.language": "Language",
@@ -360,11 +453,14 @@ const translations = {
     "dev.resources.ui": "UI",
     "dev.resources.audio": "Audio",
     "dev.resources.apiDocs": "API Documentation",
-    "dev.resources.apiDocsDesc": "Comprehensive API documentation for integrating with Quran data sources.",
+    "dev.resources.apiDocsDesc":
+      "Comprehensive API documentation for integrating with Quran data sources.",
     "dev.resources.designSystem": "Design System",
-    "dev.resources.designSystemDesc": "Design guidelines, components, and patterns used throughout the application.",
+    "dev.resources.designSystemDesc":
+      "Design guidelines, components, and patterns used throughout the application.",
     "dev.resources.documentation": "Documentation",
-    "dev.resources.documentationDesc": "Detailed documentation for developers and contributors.",
+    "dev.resources.documentationDesc":
+      "Detailed documentation for developers and contributors.",
     "dev.resources.apiReference": "API Reference (Coming Soon)",
     "dev.resources.dataSchema": "Data Schema (Coming Soon)",
     "dev.resources.componentLibrary": "Component Library (Coming Soon)",
@@ -373,9 +469,11 @@ const translations = {
     "dev.resources.architecture": "Architecture Overview (Coming Soon)",
     "dev.resources.contact": "Contact & Support",
     "dev.resources.technicalQuestions": "Technical Questions",
-    "dev.resources.technicalQuestionsDesc": "Use GitHub Discussions for technical questions and feature requests.",
+    "dev.resources.technicalQuestionsDesc":
+      "Use GitHub Discussions for technical questions and feature requests.",
     "dev.resources.bugReports": "Bug Reports",
-    "dev.resources.bugReportsDesc": "Report bugs through GitHub Issues with detailed reproduction steps.",
+    "dev.resources.bugReportsDesc":
+      "Report bugs through GitHub Issues with detailed reproduction steps.",
     "dev.resources.generalInquiries": "General Inquiries",
     "dev.resources.generalInquiriesDesc": "Email us at",
 
@@ -397,23 +495,31 @@ const translations = {
     "hero.stats.surahs": "Surahs",
     "hero.stats.pages": "Pages",
     "hero.stats.verses": "Verses",
-    "hero.supportedBy": "Developed with the support of Diyanet İşleri Başkanlığı",
+    "hero.supportedBy":
+      "Developed with the support of Diyanet İşleri Başkanlığı",
 
     // Features
     "features.title": "Useful Features",
-    "features.subtitle": "Features designed to enhance your Quran reading experience",
+    "features.subtitle":
+      "Features designed to enhance your Quran reading experience",
     "features.typography.title": "Comfortable Reading",
-    "features.typography.desc": "Eye-friendly reading experience with fonts optimized for Arabic texts",
+    "features.typography.desc":
+      "Eye-friendly reading experience with fonts optimized for Arabic texts",
     "features.audio.title": "Audio Recitation",
-    "features.audio.desc": "Listen to verses with audio recitation from renowned reciters",
+    "features.audio.desc":
+      "Listen to verses with audio recitation from renowned reciters",
     "features.translation.title": "Translation Support",
-    "features.translation.desc": "Meaning support with Turkish and English translation options",
+    "features.translation.desc":
+      "Meaning support with Turkish and English translation options",
     "features.bookmark.title": "Bookmarking",
-    "features.bookmark.desc": "Bookmark verses and continue from where you left off",
+    "features.bookmark.desc":
+      "Bookmark verses and continue from where you left off",
     "features.darkMode.title": "Dark Mode",
-    "features.darkMode.desc": "Eye-friendly dark theme option for night reading",
+    "features.darkMode.desc":
+      "Eye-friendly dark theme option for night reading",
     "features.openSource.title": "Open Source",
-    "features.openSource.desc": "Community-developed project where everyone can contribute",
+    "features.openSource.desc":
+      "Community-developed project where everyone can contribute",
 
     // Community
     "community.badge": "Community-Driven Development",
@@ -423,13 +529,17 @@ const translations = {
       "Help us build the future of digital Quran applications. Open source, collaborative, and impactful.",
     "community.contribute": "Start Contributing",
     "community.cards.openSource.title": "Open Source",
-    "community.cards.openSource.description": "Completely open source on GitHub. Fork, contribute, and adapt it to your needs.",
+    "community.cards.openSource.description":
+      "Completely open source on GitHub. Fork, contribute, and adapt it to your needs.",
     "community.cards.modernTech.title": "Modern Tech",
-    "community.cards.modernTech.description": "Built with Next.js 15, TypeScript, and modern web technologies.",
+    "community.cards.modernTech.description":
+      "Built with Next.js 15, TypeScript, and modern web technologies.",
     "community.cards.globalImpact.title": "Global Impact",
-    "community.cards.globalImpact.description": "Serve millions of Muslims worldwide with your contributions.",
+    "community.cards.globalImpact.description":
+      "Serve millions of Muslims worldwide with your contributions.",
     "community.cards.activeCommunity.title": "Active Community",
-    "community.cards.activeCommunity.description": "Join our Discord and Telegram communities for discussions and support.",
+    "community.cards.activeCommunity.description":
+      "Join our Discord and Telegram communities for discussions and support.",
     "community.stats.stars": "GitHub Stars",
     "community.stats.forks": "Forks",
     "community.stats.contributors": "Contributors",
@@ -438,7 +548,8 @@ const translations = {
     // CTA
     "cta.title": "Ready to Start Your",
     "cta.subtitle": "Quran Journey?",
-    "cta.description": "Join thousands of Muslims who use our app for their daily Quran reading routine.",
+    "cta.description":
+      "Join thousands of Muslims who use our app for their daily Quran reading routine.",
     "cta.startNow": "Start Reading Now",
     "cta.mobileApp": "Mobile App (Coming Soon)",
     "cta.free": "Free forever",
@@ -449,7 +560,8 @@ const translations = {
     "cta.supportedByDesc": "developed with support",
 
     // Footer
-    "footer.description": "Open-source digital Quran application built with modern web technologies",
+    "footer.description":
+      "Open-source digital Quran application built with modern web technologies",
     "footer.application": "Application",
     "footer.readQuran": "Read Quran",
     "footer.browsePages": "Browse Pages",
@@ -469,6 +581,44 @@ const translations = {
     "navigation.prevSurah": "Previous Surah",
     "navigation.nextSurah": "Next Surah",
     "navigation.surah": "Surah",
+
+    // Notes
+    "notes.addNote": "Add Note",
+    "notes.editNote": "Edit Note",
+    "notes.personalNote": "Personal Note",
+    "notes.placeholder":
+      "Write your thoughts, learnings, or reminders about this verse...",
+    "notes.maxLength": "Maximum length",
+    "notes.characters": "characters",
+    "notes.delete": "Delete",
+    "notes.saved": "Note saved!",
+    "notes.savedDescription": "Your note has been saved successfully.",
+    "notes.removed": "Note deleted!",
+    "notes.removedDescription": "Your note has been deleted successfully.",
+    "notes.error": "Error occurred",
+    "notes.errorDescription": "An error occurred while saving the note.",
+    "notes.showMore": "Show more",
+    "notes.showLess": "Show less",
+
+    // Bookmarks
+    "bookmarks.title": "My Bookmarks",
+    "bookmarks.description":
+      "Your bookmarked verses and notes are displayed here.",
+    "bookmarks.withNotes": "Verses with Notes",
+    "bookmarks.withoutNotes": "Verses without Notes",
+    "bookmarks.addedOn": "Added on",
+    "bookmarks.lastUpdated": "Last updated",
+    "bookmarks.removed": "Bookmark removed!",
+    "bookmarks.removedDescription": "Verse has been removed from bookmarks.",
+    "bookmarks.addedDescription": "Verse has been bookmarked.",
+    "bookmarks.empty.title": "You don't have any bookmarked verses yet",
+    "bookmarks.empty.description": "You can bookmark verses to save them here.",
+    "bookmarks.empty.startReading": "Start Reading",
+
+    // Common
+    "common.cancel": "Cancel",
+    "common.save": "Save",
+    "common.saving": "Saving...",
   },
   es: {
     // Header
@@ -479,7 +629,8 @@ const translations = {
 
     // Surah List
     "surahs.title": "Suras",
-    "surahs.subtitle": "Explora los 114 capítulos del Sagrado Corán y elige el que deseas leer",
+    "surahs.subtitle":
+      "Explora los 114 capítulos del Sagrado Corán y elige el que deseas leer",
     "surahs.searchPlaceholder": "Buscar por nombre o número de sura...",
     "surahs.totalSurahs": "Total de Suras",
     "surahs.showing": "Mostrando",
@@ -489,7 +640,8 @@ const translations = {
     "surahs.readSurah": "Leer Sura",
     "surahs.readSurahDetails": "Detalles de la Sura",
     "surahs.noResults": "No se encontraron resultados",
-    "surahs.noResultsDesc": "Ninguna sura coincide con tus criterios de búsqueda. Prueba con otras palabras.",
+    "surahs.noResultsDesc":
+      "Ninguna sura coincide con tus criterios de búsqueda. Prueba con otras palabras.",
     "surahs.clearSearch": "Limpiar búsqueda",
 
     // Quran Reader
@@ -510,7 +662,8 @@ const translations = {
     "quran.of": "de",
     "quran.verses": "versos",
     "quran.loading": "Cargando...",
-    "quran.error": "Error al cargar los datos de la página. Por favor, inténtalo de nuevo.",
+    "quran.error":
+      "Error al cargar los datos de la página. Por favor, inténtalo de nuevo.",
     "quran.pageNotFound": "Página no encontrada.",
     "quran.surahNotFound": "Sura no encontrada.",
 
@@ -522,12 +675,15 @@ const translations = {
     "dev.welcome.modernTechDesc":
       "Desarrollado con Next.js 15, TypeScript, Tailwind CSS y otras tecnologías de vanguardia.",
     "dev.welcome.purposeDriven": "Con Propósito",
-    "dev.welcome.purposeDrivenDesc": "Cada línea de código sirve para hacer el Corán más accesible.",
+    "dev.welcome.purposeDrivenDesc":
+      "Cada línea de código sirve para hacer el Corán más accesible.",
     "dev.welcome.globalImpact": "Impacto Global",
-    "dev.welcome.globalImpactDesc": "Tus contribuciones beneficiarán a millones de musulmanes en todo el mundo.",
+    "dev.welcome.globalImpactDesc":
+      "Tus contribuciones beneficiarán a millones de musulmanes en todo el mundo.",
 
     "dev.quickStart.title": "Inicio Rápido",
-    "dev.quickStart.subtitle": "Ejecuta el proyecto localmente en solo unos minutos.",
+    "dev.quickStart.subtitle":
+      "Ejecuta el proyecto localmente en solo unos minutos.",
     "dev.quickStart.setupInstructions": "Instrucciones de Configuración",
     "dev.quickStart.step1": "Clonar el repositorio",
     "dev.quickStart.step2": "Instalar dependencias",
@@ -537,20 +693,25 @@ const translations = {
     "dev.quickStart.downloadProject": "Descargar Proyecto",
     "dev.quickStart.watchVideo": "Ver Video de Configuración",
     "dev.quickStart.envSetup": "Configuración de Variables de Entorno",
-    "dev.quickStart.envSetupDesc": "Configura las variables de entorno necesarias para el acceso a la API",
+    "dev.quickStart.envSetupDesc":
+      "Configura las variables de entorno necesarias para el acceso a la API",
     "dev.quickStart.createEnvFile": "Crear archivo .env.local",
-    "dev.quickStart.envContent": "Agregar el siguiente contenido a tu archivo .env.local:",
+    "dev.quickStart.envContent":
+      "Agregar el siguiente contenido a tu archivo .env.local:",
     "dev.quickStart.getApiCredentials": "Obtener Credenciales de API",
-    "dev.quickStart.getApiCredentialsDesc": "Visita el siguiente sitio para obtener credenciales de acceso a la API",
+    "dev.quickStart.getApiCredentialsDesc":
+      "Visita el siguiente sitio para obtener credenciales de acceso a la API",
     "dev.quickStart.dockerOption": "Ejecutar con Docker",
-    "dev.quickStart.dockerOptionDesc": "Alternativamente, puedes ejecutar el proyecto usando Docker",
+    "dev.quickStart.dockerOptionDesc":
+      "Alternativamente, puedes ejecutar el proyecto usando Docker",
     "dev.quickStart.dockerCommand": "Iniciar con Docker",
     "dev.quickStart.dockerStart": "Iniciar con Docker Compose",
     "dev.quickStart.dockerOpenBrowser": "Abrir el navegador",
     "dev.quickStart.dockerInstallGuide": "Guía de Instalación de Docker",
 
     "dev.contribute.title": "Cómo Contribuir",
-    "dev.contribute.subtitle": "Damos la bienvenida a contribuciones de desarrolladores de todos los niveles.",
+    "dev.contribute.subtitle":
+      "Damos la bienvenida a contribuciones de desarrolladores de todos los niveles.",
     "dev.contribute.process": "Proceso de Desarrollo",
     "dev.contribute.processDesc":
       "1. Hacer fork del repositorio en GitHub\n2. Crear una rama de funcionalidad\n3. Hacer tus cambios con pruebas\n4. Enviar un pull request\n5. Revisión de código y fusión",
@@ -560,17 +721,22 @@ const translations = {
     "dev.contribute.codeOfConduct": "Código de Conducta",
     "dev.contribute.helpAreas": "Áreas Donde Puedes Contribuir",
     "dev.contribute.frontend": "Desarrollo Frontend",
-    "dev.contribute.frontendDesc": "Componentes React, mejoras de UI/UX, diseño responsivo, mejoras de experiencia de usuario, optimización de rendimiento, mejoras de accesibilidad",
+    "dev.contribute.frontendDesc":
+      "Componentes React, mejoras de UI/UX, diseño responsivo, mejoras de experiencia de usuario, optimización de rendimiento, mejoras de accesibilidad",
     "dev.contribute.backend": "Sugerencias de Backend",
-    "dev.contribute.backendDesc": "Sugerencias de nuevas rutas de API, solicitudes de mejora para rutas existentes, sugerencias de estructura de datos, recomendaciones de mejora de rendimiento",
+    "dev.contribute.backendDesc":
+      "Sugerencias de nuevas rutas de API, solicitudes de mejora para rutas existentes, sugerencias de estructura de datos, recomendaciones de mejora de rendimiento",
     "dev.contribute.translations": "Traducción y Accesibilidad",
-    "dev.contribute.translationsDesc": "Agregar nuevos idiomas, mejorar traducciones existentes, actualizaciones de accesibilidad de interfaz, soporte de idioma inclusivo para el mundo islámico",
+    "dev.contribute.translationsDesc":
+      "Agregar nuevos idiomas, mejorar traducciones existentes, actualizaciones de accesibilidad de interfaz, soporte de idioma inclusivo para el mundo islámico",
     "dev.contribute.viewOnGithub": "Ver en GitHub",
 
     "dev.community.title": "Únete a Nuestra Comunidad",
-    "dev.community.subtitle": "Conecta con desarrolladores y colaboradores de todo el mundo.",
+    "dev.community.subtitle":
+      "Conecta con desarrolladores y colaboradores de todo el mundo.",
     "dev.community.github": "GitHub",
-    "dev.community.githubDesc": "Problemas, discusiones y contribuciones de código.",
+    "dev.community.githubDesc":
+      "Problemas, discusiones y contribuciones de código.",
     "dev.community.email": "Correo Electrónico",
     "dev.community.emailDesc": "Contacto directo para asuntos importantes.",
     "dev.community.viewRepository": "Ver Repositorio",
@@ -580,7 +746,8 @@ const translations = {
     "dev.community.soon": "Canales comunitarios próximamente",
 
     "dev.resources.title": "Recursos para Desarrolladores",
-    "dev.resources.subtitle": "Todo lo que necesitas para entender y contribuir al proyecto.",
+    "dev.resources.subtitle":
+      "Todo lo que necesitas para entender y contribuir al proyecto.",
     "dev.resources.techStack": "Tecnologías",
     "dev.resources.framework": "Framework",
     "dev.resources.language": "Idioma",
@@ -589,22 +756,29 @@ const translations = {
     "dev.resources.ui": "UI",
     "dev.resources.audio": "Audio",
     "dev.resources.apiDocs": "Documentación de API",
-    "dev.resources.apiDocsDesc": "Documentación completa de API para integrar con fuentes de datos del Corán.",
+    "dev.resources.apiDocsDesc":
+      "Documentación completa de API para integrar con fuentes de datos del Corán.",
     "dev.resources.designSystem": "Sistema de Diseño",
-    "dev.resources.designSystemDesc": "Directrices de diseño, componentes y patrones utilizados en toda la aplicación.",
+    "dev.resources.designSystemDesc":
+      "Directrices de diseño, componentes y patrones utilizados en toda la aplicación.",
     "dev.resources.documentation": "Documentación",
-    "dev.resources.documentationDesc": "Documentación detallada para desarrolladores y colaboradores.",
+    "dev.resources.documentationDesc":
+      "Documentación detallada para desarrolladores y colaboradores.",
     "dev.resources.apiReference": "Referencia de API (Próximamente)",
     "dev.resources.dataSchema": "Esquema de Datos (Próximamente)",
-    "dev.resources.componentLibrary": "Biblioteca de Componentes (Próximamente)",
+    "dev.resources.componentLibrary":
+      "Biblioteca de Componentes (Próximamente)",
     "dev.resources.designGuidelines": "Directrices de Diseño (Próximamente)",
     "dev.resources.gettingStarted": "Guía de Inicio (Próximamente)",
-    "dev.resources.architecture": "Visión General de Arquitectura (Próximamente)",
+    "dev.resources.architecture":
+      "Visión General de Arquitectura (Próximamente)",
     "dev.resources.contact": "Contacto y Soporte",
     "dev.resources.technicalQuestions": "Preguntas Técnicas",
-    "dev.resources.technicalQuestionsDesc": "Usa GitHub Discussions para preguntas técnicas y solicitudes de funcionalidades.",
+    "dev.resources.technicalQuestionsDesc":
+      "Usa GitHub Discussions para preguntas técnicas y solicitudes de funcionalidades.",
     "dev.resources.bugReports": "Reportes de Errores",
-    "dev.resources.bugReportsDesc": "Reporta errores a través de GitHub Issues con pasos detallados de reproducción.",
+    "dev.resources.bugReportsDesc":
+      "Reporta errores a través de GitHub Issues con pasos detallados de reproducción.",
     "dev.resources.generalInquiries": "Consultas Generales",
     "dev.resources.generalInquiriesDesc": "Envíanos un correo a",
 
@@ -626,23 +800,30 @@ const translations = {
     "hero.stats.surahs": "Suras",
     "hero.stats.pages": "Páginas",
     "hero.stats.verses": "Versos",
-    "hero.supportedBy": "Desarrollado con el apoyo de Diyanet İşleri Başkanlığı",
+    "hero.supportedBy":
+      "Desarrollado con el apoyo de Diyanet İşleri Başkanlığı",
 
     // Features
     "features.title": "Características Útiles",
-    "features.subtitle": "Características diseñadas para mejorar tu experiencia de lectura del Corán",
+    "features.subtitle":
+      "Características diseñadas para mejorar tu experiencia de lectura del Corán",
     "features.typography.title": "Lectura Cómoda",
-    "features.typography.desc": "Experiencia de lectura amigable con fuentes optimizadas para textos árabes",
+    "features.typography.desc":
+      "Experiencia de lectura amigable con fuentes optimizadas para textos árabes",
     "features.audio.title": "Recitación de Audio",
-    "features.audio.desc": "Escucha versos con recitación de audio de recitatores reconocidos",
+    "features.audio.desc":
+      "Escucha versos con recitación de audio de recitatores reconocidos",
     "features.translation.title": "Soporte de Traducción",
-    "features.translation.desc": "Soporte de significado con opciones de traducción en turco e inglés",
+    "features.translation.desc":
+      "Soporte de significado con opciones de traducción en turco e inglés",
     "features.bookmark.title": "Marcadores",
     "features.bookmark.desc": "Marca versos y continúa desde donde lo dejaste",
     "features.darkMode.title": "Modo Oscuro",
-    "features.darkMode.desc": "Opción de tema oscuro amigable con los ojos para lectura nocturna",
+    "features.darkMode.desc":
+      "Opción de tema oscuro amigable con los ojos para lectura nocturna",
     "features.openSource.title": "Código Abierto",
-    "features.openSource.desc": "Proyecto desarrollado por la comunidad donde todos pueden contribuir",
+    "features.openSource.desc":
+      "Proyecto desarrollado por la comunidad donde todos pueden contribuir",
 
     // Community
     "community.badge": "Desarrollo Impulsado por la Comunidad",
@@ -652,13 +833,17 @@ const translations = {
       "Ayúdanos a construir el futuro de las aplicaciones digitales del Corán. Código abierto, colaborativo e impactante.",
     "community.contribute": "Comenzar a Contribuir",
     "community.cards.openSource.title": "Código Abierto",
-    "community.cards.openSource.description": "Completamente de código abierto en GitHub. Haz fork, contribuye y adáptalo a tus necesidades.",
+    "community.cards.openSource.description":
+      "Completamente de código abierto en GitHub. Haz fork, contribuye y adáptalo a tus necesidades.",
     "community.cards.modernTech.title": "Tecnología Moderna",
-    "community.cards.modernTech.description": "Construido con Next.js 15, TypeScript y tecnologías web modernas.",
+    "community.cards.modernTech.description":
+      "Construido con Next.js 15, TypeScript y tecnologías web modernas.",
     "community.cards.globalImpact.title": "Impacto Global",
-    "community.cards.globalImpact.description": "Sirve a millones de musulmanes en todo el mundo con tus contribuciones.",
+    "community.cards.globalImpact.description":
+      "Sirve a millones de musulmanes en todo el mundo con tus contribuciones.",
     "community.cards.activeCommunity.title": "Comunidad Activa",
-    "community.cards.activeCommunity.description": "Únete a nuestras comunidades de Discord y Telegram para discusiones y soporte.",
+    "community.cards.activeCommunity.description":
+      "Únete a nuestras comunidades de Discord y Telegram para discusiones y soporte.",
     "community.stats.stars": "Estrellas de GitHub",
     "community.stats.forks": "Forks",
     "community.stats.contributors": "Colaboradores",
@@ -667,7 +852,8 @@ const translations = {
     // CTA
     "cta.title": "¿Listo para Comenzar tu",
     "cta.subtitle": "Viaje del Corán?",
-    "cta.description": "Únete a miles de musulmanes que usan nuestra aplicación para su rutina diaria de lectura del Corán.",
+    "cta.description":
+      "Únete a miles de musulmanes que usan nuestra aplicación para su rutina diaria de lectura del Corán.",
     "cta.startNow": "Comenzar a Leer Ahora",
     "cta.mobileApp": "Aplicación Móvil (Próximamente)",
     "cta.free": "Gratis para siempre",
@@ -678,7 +864,8 @@ const translations = {
     "cta.supportedByDesc": "desarrollado con apoyo",
 
     // Footer
-    "footer.description": "Aplicación digital del Corán de código abierto construida con tecnologías web modernas",
+    "footer.description":
+      "Aplicación digital del Corán de código abierto construida con tecnologías web modernas",
     "footer.application": "Aplicación",
     "footer.readQuran": "Leer Corán",
     "footer.browsePages": "Explorar Páginas",
@@ -691,7 +878,8 @@ const translations = {
     "footer.discord": "Discord",
     "footer.telegram": "Telegram",
     "footer.contact": "Contacto",
-    "footer.copyright": "© 2025 Aplicación del Corán. Proyecto de código abierto.",
+    "footer.copyright":
+      "© 2025 Aplicación del Corán. Proyecto de código abierto.",
     "footer.madeWith": "Hecho con",
 
     // Navigation
@@ -699,38 +887,49 @@ const translations = {
     "navigation.nextSurah": "Siguiente Sura",
     "navigation.surah": "Sura",
   },
-}
+};
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguage] = useState("tr")
+  const [language, setLanguage] = useState("tr");
 
   useEffect(() => {
-    const savedLanguage = localStorage.getItem("language")
-    if (savedLanguage && (savedLanguage === "tr" || savedLanguage === "en" || savedLanguage === "es")) {
-      setLanguage(savedLanguage)
+    const savedLanguage = localStorage.getItem("language");
+    if (
+      savedLanguage &&
+      (savedLanguage === "tr" ||
+        savedLanguage === "en" ||
+        savedLanguage === "es")
+    ) {
+      setLanguage(savedLanguage);
     }
-  }, [])
+  }, []);
 
   const handleSetLanguage = (lang: string) => {
-    setLanguage(lang)
-    localStorage.setItem("language", lang)
-  }
+    setLanguage(lang);
+    localStorage.setItem("language", lang);
+  };
 
   const t = (key: string): string => {
-    return translations[language as keyof typeof translations]?.[key as keyof typeof translations.tr] || key
-  }
+    return (
+      translations[language as keyof typeof translations]?.[
+        key as keyof typeof translations.tr
+      ] || key
+    );
+  };
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage: handleSetLanguage, t }}>
+    <LanguageContext.Provider
+      value={{ language, setLanguage: handleSetLanguage, t }}
+    >
       {children}
     </LanguageContext.Provider>
-  )
+  );
 }
 
 export function useLanguage() {
-  const context = useContext(LanguageContext)
+  const context = useContext(LanguageContext);
   if (context === undefined) {
-    throw new Error("useLanguage must be used within a LanguageProvider")
+    throw new Error("useLanguage must be used within a LanguageProvider");
   }
-  return context
+  return context;
 }

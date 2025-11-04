@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export function getOrdinal(n: number, lang: string) {
   if (lang === "tr") return ".";
-  if (lang === "en") return getEnglishOrdinal(n);  
+  if (lang === "en") return getEnglishOrdinal(n);
   return n.toString();
 }
 

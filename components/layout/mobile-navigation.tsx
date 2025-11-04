@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Code, Home, Menu } from "lucide-react";
+import { BookOpen, Code, Home, Menu, BookmarkCheck } from "lucide-react";
 import { useLanguage } from "@/components/language-provider";
 import { useState } from "react";
 import {

@@ -1,5 +1,16 @@
-import { apiClient, transformChapterToSurah, ChaptersResponse } from './api-client'
-import type { Surah, Verse, DIBPageResponse, DIBVerse, DIBSurahResponse, DIBSurahVerse } from '@/types/quran'
+import {
+  apiClient,
+  transformChapterToSurah,
+  ChaptersResponse,
+} from "./api-client";
+import type {
+  Surah,
+  Verse,
+  DIBPageResponse,
+  DIBVerse,
+  DIBSurahResponse,
+  DIBSurahVerse,
+} from "@/types/quran";
 
 // Helper function to transform DIB verse to our internal format
 function transformDIBVerseToVerse(dibVerse: DIBVerse): Verse {
@@ -12,8 +23,12 @@ function transformDIBVerseToVerse(dibVerse: DIBVerse): Verse {
       tr: dibVerse.translation.text, // Assuming Turkish translation
       en: dibVerse.translation.text, // For now using same text
     },
-    audio_url: `/audio/${dibVerse.surah_id.toString().padStart(3, '0')}_${dibVerse.verse_id_in_surah.toString().padStart(3, '0')}.mp3`,
-  }
+    audio_url: `/audio/${dibVerse.surah_id
+      .toString()
+      .padStart(3, "0")}_${dibVerse.verse_id_in_surah
+      .toString()
+      .padStart(3, "0")}.mp3`,
+  };
 }
 
 // Helper function to transform DIB surah verse to our internal format
@@ -27,46 +42,72 @@ function transformDIBSurahVerseToVerse(dibVerse: DIBSurahVerse): Verse {
       tr: dibVerse.translation.text, // Assuming Turkish translation
       en: dibVerse.translation.text, // For now using same text
     },
-    audio_url: `/audio/${dibVerse.surah_id.toString().padStart(3, '0')}_${dibVerse.verse_id_in_surah.toString().padStart(3, '0')}.mp3`,
-  }
+    audio_url: `/audio/${dibVerse.surah_id
+      .toString()
+      .padStart(3, "0")}_${dibVerse.verse_id_in_surah
+      .toString()
+      .padStart(3, "0")}.mp3`,
+  };
 }
 
 export async function getPageData(pageNumber: number) {
   // Fetch from real API
-  const response = await apiClient.get<DIBPageResponse>(`/quran/pages/${pageNumber}`)
-  
+  const response = await apiClient.get<DIBPageResponse>(
+    `/quran/pages/${pageNumber}`
+  );
+
+  // Remove duplicates based on unique verse identifier to ensure unique keys
+  const uniqueVerses = response.data.filter(
+    (verse, index, self) =>
+      index ===
+      self.findIndex(
+        (v) =>
+          v.surah_id === verse.surah_id &&
+          v.verse_id_in_surah === verse.verse_id_in_surah
+      )
+  );
+
   return {
     page_number: response.meta.requested_page,
-    verses: response.data.map(transformDIBVerseToVerse),
-  }
+    verses: uniqueVerses.map(transformDIBVerseToVerse),
+  };
 }
 
 export async function getSurahData(surahId: number) {
   // Fetch from real API
-  const response = await apiClient.get<DIBSurahResponse>(`/quran/surah/${surahId}`)
-  
+  const response = await apiClient.get<DIBSurahResponse>(
+    `/quran/surah/${surahId}`
+  );
+
   // Get surah info from the list
-  const surahs = await getSurahList()
-  const surah = surahs.find(s => s.id === surahId)
-  
+  const surahs = await getSurahList();
+  const surah = surahs.find((s) => s.id === surahId);
+
   if (!surah) {
-    throw new Error("Surah not found")
+    throw new Error("Surah not found");
   }
+
+  // Remove duplicates based on verse_id_in_surah to ensure unique keys
+  const uniqueVerses = response.data.filter(
+    (verse, index, self) =>
+      index ===
+      self.findIndex((v) => v.verse_id_in_surah === verse.verse_id_in_surah)
+  );
 
   return {
     surah,
-    verses: response.data.map(transformDIBSurahVerseToVerse),
-  }
+    verses: uniqueVerses.map(transformDIBSurahVerseToVerse),
+  };
 }
 
 export async function getSurahList(): Promise<Surah[]> {
   // Fetch from real API
-  const response = await apiClient.get<ChaptersResponse>('/quran/chapters')
+  const response = await apiClient.get<ChaptersResponse>("/quran/chapters");
   // Transform the API response to our internal format
-  return response.data.map(transformChapterToSurah)
+  return response.data.map(transformChapterToSurah);
 }
 
 export async function searchVerses(query: string) {
   // TODO: Implement real API call for verse search when endpoint is available
-  throw new Error('searchVerses: Real API endpoint not implemented yet')
+  throw new Error("searchVerses: Real API endpoint not implemented yet");
 }
