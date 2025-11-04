@@ -119,8 +119,13 @@ export function QuranNavigation({ currentPage }: QuranNavigationProps) {
     router.push(pageHref(page))
   }
 
+  // Merkezde gösterilen sayfa bilgisini tek yerde oluştur (hem içerik hem title için)
+  const infoText = `${t("quran.page")} ${currentPage} ${t("quran.of")} 604${
+    cuzOfCurrent ? ` | Cüz ${cuzOfCurrent}` : ""
+  }${selectedCuz ? ` | (${pagesToShow.length} sayfa)` : ""}`
+
   return (
-    <div className="mx-auto mb-6 max-w-4xl px-2 sm:mb-8 sm:px-4">
+  <div className="mx-auto mb-6 w-full max-w-5xl px-2 sm:mb-8 sm:px-4">
       <div className="flex flex-wrap items-center gap-3 lg:flex-nowrap lg:items-stretch">
         <Button
           asChild
@@ -174,10 +179,11 @@ export function QuranNavigation({ currentPage }: QuranNavigationProps) {
           </Link>
         </Button>
 
-        <div className="flex min-w-[12rem] flex-1 items-center justify-center whitespace-nowrap rounded-md border px-3 py-2 text-sm text-muted-foreground">
-          {t("quran.page")} {currentPage} {t("quran.of")} 604
-          {cuzOfCurrent ? ` | Cüz ${cuzOfCurrent}` : ""}
-          {selectedCuz ? ` | (${pagesToShow.length} sayfa)` : ""}
+        <div
+          className="flex-none w-auto max-w-[26rem] whitespace-nowrap rounded-md border px-2 py-2 text-center text-sm text-muted-foreground"
+          title={infoText}
+        >
+          {infoText}
         </div>
 
         <Button
