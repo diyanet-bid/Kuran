@@ -1,6 +1,6 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BookmarkCheck } from "lucide-react";
@@ -26,11 +26,12 @@ export function SurahReader({ surahId }: SurahReaderProps) {
   } = useQuery({
     queryKey: ["surah", surahId],
     queryFn: () => getSurahData(surahId),
+     placeholderData: keepPreviousData,
   });
 
-  if (isLoading) {
+  if (isLoading && !surahData) {
     return (
-      <div className="flex items-center justify-center py-20">
+      <div className="flex items-center justify-center py-20 min-h-[calc(100vh-200px)]">
         <LoadingSpinner />
         <span className="ml-2">{t("quran.loading")}</span>
       </div>
@@ -48,7 +49,7 @@ export function SurahReader({ surahId }: SurahReaderProps) {
   }
 
   return (
-    <div className="mx-auto max-w-4xl space-y-4 px-2 sm:space-y-6 sm:px-4">
+    <div className="mx-auto max-w-4xl space-y-4 px-2 sm:space-y-6 sm:px-4 min-h-[calc(100vh-200px)]">
       <Card>
         <CardHeader className="px-4 py-4 sm:px-6 sm:py-6">
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
@@ -83,13 +84,18 @@ export function SurahReader({ surahId }: SurahReaderProps) {
       </Card>
 
       <div className="space-y-3 sm:space-y-4">
-        {surahData.verses.map((verse) => (
-          <VerseComponent
+        {surahData.verses.map((verse, index) => (
+          <div
             key={verse.id}
-            verse={verse}
-            showTranslation={currentTranslation !== "none"}
-            translationLanguage={currentTranslation}
-          />
+            className="animate-in fade-in slide-in-from-top-4 duration-500"
+            style={{ animationDelay: `${index * 80}ms` }}
+          >
+            <VerseComponent
+              verse={verse}
+              showTranslation={currentTranslation !== "none"}
+              translationLanguage={currentTranslation}
+            />
+          </div>
         ))}
       </div>
     </div>
