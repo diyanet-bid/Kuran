@@ -1,6 +1,6 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Play, Pause, Bookmark, BookmarkCheck, Copy } from "lucide-react";
@@ -29,11 +29,12 @@ export function QuranReader({ pageNumber }: QuranReaderProps) {
   } = useQuery({
     queryKey: ["page", pageNumber],
     queryFn: () => getPageData(pageNumber),
+    placeholderData: keepPreviousData,
   });
 
-  if (isLoading) {
+  if (isLoading && !pageData) {
     return (
-      <div className="flex items-center justify-center py-20">
+      <div className="flex items-center justify-center py-20 min-h-[calc(100vh-200px)]">
         <LoadingSpinner />
         <span className="ml-2 text-muted-foreground">{t("quran.loading")}</span>
       </div>
@@ -91,7 +92,7 @@ export function QuranReader({ pageNumber }: QuranReaderProps) {
   };
 
   return (
-    <div className="mx-auto max-w-4xl space-y-4 px-2 sm:px-4">
+    <div className="mx-auto max-w-4xl space-y-4 px-2 sm:px-4 min-h-[calc(100vh-200px)]">
       <Card className="border-accent/20 bg-card/80 shadow-lg backdrop-blur-sm">
         <CardHeader className="flex flex-col items-start justify-between gap-4 pb-4 sm:flex-row sm:items-center">
           <CardTitle className="text-xl font-semibold text-card-foreground sm:text-2xl">
@@ -155,13 +156,18 @@ export function QuranReader({ pageNumber }: QuranReaderProps) {
           </div>
         </CardHeader>
         <CardContent className="space-y-4 pt-0 sm:space-y-6">
-          {pageData.verses.map((verse) => (
-            <VerseComponent
+           {pageData.verses.map((verse, index) => (
+            <div
               key={verse.id}
-              verse={verse}
-              showTranslation={shouldIncludeTranslation}
-              translationLanguage={currentTranslation}
-            />
+              className="animate-in fade-in slide-in-from-top-4 duration-500"
+              style={{ animationDelay: `${index * 80}ms` }}
+            >
+              <VerseComponent
+                verse={verse}
+                showTranslation={shouldIncludeTranslation}
+                translationLanguage={currentTranslation}
+              />
+            </div>
           ))}
         </CardContent>
       </Card>
