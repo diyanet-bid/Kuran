@@ -48,17 +48,16 @@ function transformDIBVerseToVerse(dibVerse: DIBVerse, requestedLanguage: Transla
 }
 
 // Helper function to transform DIB surah verse to our internal format
-function transformDIBSurahVerseToVerse(dibVerse: DIBSurahVerse): Verse {
+function transformDIBSurahVerseToVerse(
+  dibVerse: DIBSurahVerse,
+  requestedLanguage: TranslationLanguage
+): Verse {
   return {
     id: `${dibVerse.surah_id}:${dibVerse.verse_id_in_surah}`,
     surah_id: dibVerse.surah_id,
     verse_number: dibVerse.verse_id_in_surah,
     text_arabic: dibVerse.arabic_script.text,
-    translations: {
-      tr: dibVerse.translation.text,
-      en: dibVerse.translation.text,
-      es: dibVerse.translation.text,
-    },
+    translations: buildTranslations(dibVerse.translation.text, requestedLanguage),
     audio_url: `/audio/${dibVerse.surah_id
       .toString()
       .padStart(3, "0")}_${dibVerse.verse_id_in_surah
@@ -93,9 +92,14 @@ export async function getPageData(pageNumber: number, language: string = "tr") {
   };
 }
 
-export async function getSurahData(surahId: number) {
-  // Fetch from real API
-  const response = await apiClient.get<DIBSurahResponse>(`/quran/surah/${surahId}`);
+export async function getSurahData(surahId: number, language: string = "tr") {
+  const lang = toTranslationLanguage(language);
+  const languageId = LANGUAGE_ID_BY_CODE[lang];
+  const endpoint = languageId
+    ? `/quran/surah/${surahId}?language_id=${languageId}`
+    : `/quran/surah/${surahId}`;
+
+  const response = await apiClient.get<DIBSurahResponse>(endpoint);
 
   // Get surah info from the list
   const surahs = await getSurahList();
@@ -114,12 +118,11 @@ export async function getSurahData(surahId: number) {
 
   return {
     surah,
-    verses: uniqueVerses.map(transformDIBSurahVerseToVerse),
+    verses: uniqueVerses.map((verse) => transformDIBSurahVerseToVerse(verse, lang)),
   };
 }
 
 export async function getSurahList(): Promise<Surah[]> {
-  // Fetch from real API
   const response = await apiClient.get<ChaptersResponse>("/quran/chapters");
   // Transform the API response to our internal format
   return response.data.map(transformChapterToSurah);
