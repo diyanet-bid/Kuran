@@ -6,6 +6,7 @@ export interface Verse {
   translations: {
     tr: string
     en: string
+    es: string
   }
   audio_url: string
 }
@@ -61,7 +62,7 @@ export interface DIBApiResponse<T> {
   }
 }
 
-export interface DIBChaptersResponse extends DIBApiResponse<DIBChapter[]> {}
+export interface DIBChaptersResponse extends DIBApiResponse<DIBChapter[]> { }
 
 // DIB Page API Response Types
 export interface DIBVerse {

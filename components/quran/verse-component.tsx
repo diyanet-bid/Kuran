@@ -47,8 +47,10 @@ export function VerseComponent({
     translationLanguage === "tr"
       ? verse.translations.tr
       : translationLanguage === "en"
-      ? verse.translations.en
-      : undefined;
+        ? verse.translations.en
+        : translationLanguage === "es"
+          ? verse.translations.es
+          : undefined;
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -58,8 +60,10 @@ export function VerseComponent({
     translationLanguage === "tr"
       ? "Diyanet İşleri Başkanlığı Meali"
       : translationLanguage === "en"
-      ? "Turkish Religious Affairs Translation"
-      : undefined;
+        ? "Turkish Religious Affairs Translation"
+        : translationLanguage === "es"
+          ? "Spanish Translation"
+          : undefined;
 
   const handleCopy = () => {
     const segments = [verse.text_arabic];
@@ -84,14 +88,12 @@ export function VerseComponent({
           >
             <span className="dark:text-[#E2C9A3]">
               {language === "tr"
-                ? `${getSurahName(verse.surah_id)}, ${
-                    verse.verse_number
-                  }${getOrdinal(verse.verse_number, language)} ${t(
-                    "quran.verse"
-                  )}`
-                : `${getSurahName(verse.surah_id)}, ${t("quran.verse")} ${
-                    verse.verse_number
-                  }${getOrdinal(verse.verse_number, language)}`}
+                ? `${getSurahName(verse.surah_id)}, ${verse.verse_number
+                }${getOrdinal(verse.verse_number, language)} ${t(
+                  "quran.verse"
+                )}`
+                : `${getSurahName(verse.surah_id)}, ${t("quran.verse")} ${verse.verse_number
+                }${getOrdinal(verse.verse_number, language)}`}
             </span>
           </div>
 
@@ -125,9 +127,8 @@ export function VerseComponent({
                     variant="ghost"
                     size="sm"
                     onClick={() => setIsNoteDialogOpen(true)}
-                    className={`hover:bg-primary/10 hover:text-primary p-2 dark:hover:text-accent ${
-                      bookmarked ? "text-primary" : ""
-                    } ${hasNote ? "text-accent" : ""}`}
+                    className={`hover:bg-primary/10 hover:text-primary p-2 dark:hover:text-accent ${bookmarked ? "text-primary" : ""
+                      } ${hasNote ? "text-accent" : ""}`}
                   >
                     {bookmarked ? (
                       hasNote ? (

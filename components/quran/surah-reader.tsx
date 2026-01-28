@@ -24,9 +24,10 @@ export function SurahReader({ surahId }: SurahReaderProps) {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["surah", surahId],
-    queryFn: () => getSurahData(surahId),
-     placeholderData: keepPreviousData,
+    queryKey: ["surah", surahId, currentTranslation],
+    queryFn: () =>
+      getSurahData(surahId, currentTranslation === "none" ? "tr" : currentTranslation),
+    placeholderData: keepPreviousData,
   });
 
   if (isLoading && !surahData) {
