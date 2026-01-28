@@ -124,12 +124,12 @@ export function VerseNoteDialog({
             <div className="text-right font-arabic text-base leading-relaxed text-foreground">
               {verse.text_arabic}
             </div>
-            {verse.translations.tr && (
+            {(verse.translations.tr || verse.translations.en || verse.translations.es) && (
               <div className="text-sm leading-relaxed text-muted-foreground border-t pt-2">
                 <span className="text-xs font-medium text-muted-foreground/80 block mb-1">
                   Diyanet İşleri Başkanlığı Meali
                 </span>
-                {verse.translations.tr}
+                {verse.translations.tr || verse.translations.en || verse.translations.es}
               </div>
             )}
           </div>

@@ -27,8 +27,8 @@ export function QuranReader({ pageNumber }: QuranReaderProps) {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["page", pageNumber],
-    queryFn: () => getPageData(pageNumber),
+    queryKey: ["page", pageNumber, currentTranslation],
+    queryFn: () => getPageData(pageNumber, currentTranslation === "none" ? "tr" : currentTranslation),
     placeholderData: keepPreviousData,
   });
 
@@ -63,6 +63,10 @@ export function QuranReader({ pageNumber }: QuranReaderProps) {
 
   const pageBookmarked = isBookmarked(`page-${pageNumber}`);
   const shouldIncludeTranslation = currentTranslation !== "none";
+  const translationKey =
+    currentTranslation === "en" || currentTranslation === "es"
+      ? currentTranslation
+      : "tr";
 
   const handleCopyAll = () => {
     if (!pageData) return;
@@ -72,10 +76,7 @@ export function QuranReader({ pageNumber }: QuranReaderProps) {
         const parts = [verse.text_arabic];
 
         if (shouldIncludeTranslation) {
-          const translation =
-            currentTranslation === "tr"
-              ? verse.translations.tr
-              : verse.translations.en;
+          const translation = verse.translations[translationKey as "tr" | "en" | "es"];
 
           if (translation) {
             parts.push(translation);
@@ -156,7 +157,7 @@ export function QuranReader({ pageNumber }: QuranReaderProps) {
           </div>
         </CardHeader>
         <CardContent className="space-y-4 pt-0 sm:space-y-6">
-           {pageData.verses.map((verse, index) => (
+          {pageData.verses.map((verse, index) => (
             <div
               key={verse.id}
               className="animate-in fade-in slide-in-from-top-4 duration-500"

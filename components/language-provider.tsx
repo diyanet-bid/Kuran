@@ -42,7 +42,10 @@ const translations = {
     // Quran Reader
     "quran.page": "Sayfa",
     "quran.surah": "Sure",
+    "quran.surahSuffix": "suresi",
     "quran.verse": "Ayet",
+    "quran.juz": "Cüz",
+    "quran.selectJuz": "Cüz Seç",
     "quran.play": "Oynat",
     "quran.pause": "Duraklat",
     "quran.bookmark": "İşaretle",
@@ -346,7 +349,10 @@ const translations = {
     // Quran Reader
     "quran.page": "Page",
     "quran.surah": "Surah",
+    "quran.surahSuffix": "surah",
     "quran.verse": "Verse",
+    "quran.juz": "Juz",
+    "quran.selectJuz": "Select Juz",
     "quran.play": "Play",
     "quran.pause": "Pause",
     "quran.bookmark": "Bookmark",
@@ -647,7 +653,10 @@ const translations = {
     // Quran Reader
     "quran.page": "Página",
     "quran.surah": "Sura",
+    "quran.surahSuffix": "sura",
     "quran.verse": "Verso",
+    "quran.juz": "Juz",
+    "quran.selectJuz": "Seleccionar Juz",
     "quran.play": "Reproducir",
     "quran.pause": "Pausar",
     "quran.bookmark": "Marcar",
@@ -912,7 +921,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const t = (key: string): string => {
     return (
       translations[language as keyof typeof translations]?.[
-        key as keyof typeof translations.tr
+      key as keyof typeof translations.tr
       ] || key
     );
   };

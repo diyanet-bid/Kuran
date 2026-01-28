@@ -5,7 +5,7 @@ import { getSurahList } from "@/services/quran-api";
 import { useLanguage } from "@/components/language-provider";
 
 export function useSurahName() {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
 
   const { data: surahs } = useQuery({
     queryKey: ["surahs"],
@@ -14,9 +14,9 @@ export function useSurahName() {
 
   const getSurahName = (id: number) => {
     const surah = surahs?.find((item) => item.id === id);
-    if (!surah) return `${id}. sure`;
+    if (!surah) return `${id}. ${t("quran.surah")}`;
     const name = language === "tr" ? surah.names.tr : surah.names.en;
-    return `${id}. ${name} suresi`;
+    return `${id}. ${name} ${t("quran.surahSuffix")}`;
   };
 
   return { getSurahName, surahs };

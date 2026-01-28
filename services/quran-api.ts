@@ -12,22 +12,38 @@ import type {
   DIBSurahVerse,
 } from "@/types/quran";
 
-// Helper function to transform DIB verse to our internal format
-function transformDIBVerseToVerse(dibVerse: DIBVerse): Verse {
+type TranslationLanguage = "tr" | "en" | "es";
+
+const LANGUAGE_ID_BY_CODE: Partial<Record<TranslationLanguage, number>> = {
+  en: 8,
+  es: 12,
+};
+
+function toTranslationLanguage(code: string): TranslationLanguage {
+  return code === "en" || code === "es" ? code : "tr";
+}
+
+function buildTranslations(text: string, lang: TranslationLanguage): Verse["translations"] {
+  return {
+    tr: lang === "tr" ? text : "",
+    en: lang === "en" ? text : "",
+    es: lang === "es" ? text : "",
+  };
+}
+
+// DIB API returns a single translation per request.
+function transformDIBVerseToVerse(dibVerse: DIBVerse, requestedLanguage: TranslationLanguage): Verse {
   return {
     id: `${dibVerse.surah_id}:${dibVerse.verse_id_in_surah}`,
     surah_id: dibVerse.surah_id,
     verse_number: dibVerse.verse_id_in_surah,
     text_arabic: dibVerse.arabic_script.text,
-    translations: {
-      tr: dibVerse.translation.text, // Assuming Turkish translation
-      en: dibVerse.translation.text, // For now using same text
-    },
+    translations: buildTranslations(dibVerse.translation.text, requestedLanguage),
     audio_url: `/audio/${dibVerse.surah_id
       .toString()
       .padStart(3, "0")}_${dibVerse.verse_id_in_surah
-      .toString()
-      .padStart(3, "0")}.mp3`,
+        .toString()
+        .padStart(3, "0")}.mp3`,
   };
 }
 
@@ -39,22 +55,26 @@ function transformDIBSurahVerseToVerse(dibVerse: DIBSurahVerse): Verse {
     verse_number: dibVerse.verse_id_in_surah,
     text_arabic: dibVerse.arabic_script.text,
     translations: {
-      tr: dibVerse.translation.text, // Assuming Turkish translation
-      en: dibVerse.translation.text, // For now using same text
+      tr: dibVerse.translation.text,
+      en: dibVerse.translation.text,
+      es: dibVerse.translation.text,
     },
     audio_url: `/audio/${dibVerse.surah_id
       .toString()
       .padStart(3, "0")}_${dibVerse.verse_id_in_surah
-      .toString()
-      .padStart(3, "0")}.mp3`,
+        .toString()
+        .padStart(3, "0")}.mp3`,
   };
 }
 
-export async function getPageData(pageNumber: number) {
-  // Fetch from real API
-  const response = await apiClient.get<DIBPageResponse>(
-    `/quran/pages/${pageNumber}`
-  );
+export async function getPageData(pageNumber: number, language: string = "tr") {
+  const lang = toTranslationLanguage(language);
+  const languageId = LANGUAGE_ID_BY_CODE[lang];
+  const endpoint = languageId
+    ? `/quran/pages/${pageNumber}?language_id=${languageId}`
+    : `/quran/pages/${pageNumber}`;
+
+  const response = await apiClient.get<DIBPageResponse>(endpoint);
 
   // Remove duplicates based on unique verse identifier to ensure unique keys
   const uniqueVerses = response.data.filter(
@@ -69,15 +89,13 @@ export async function getPageData(pageNumber: number) {
 
   return {
     page_number: response.meta.requested_page,
-    verses: uniqueVerses.map(transformDIBVerseToVerse),
+    verses: uniqueVerses.map((verse) => transformDIBVerseToVerse(verse, lang)),
   };
 }
 
 export async function getSurahData(surahId: number) {
   // Fetch from real API
-  const response = await apiClient.get<DIBSurahResponse>(
-    `/quran/surah/${surahId}`
-  );
+  const response = await apiClient.get<DIBSurahResponse>(`/quran/surah/${surahId}`);
 
   // Get surah info from the list
   const surahs = await getSurahList();

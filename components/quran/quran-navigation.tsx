@@ -120,12 +120,11 @@ export function QuranNavigation({ currentPage }: QuranNavigationProps) {
   }
 
   // Merkezde gösterilen sayfa bilgisini tek yerde oluştur (hem içerik hem title için)
-  const infoText = `${t("quran.page")} ${currentPage} ${t("quran.of")} 604${
-    cuzOfCurrent ? ` | Cüz ${cuzOfCurrent}` : ""
-  }${selectedCuz ? ` | (${pagesToShow.length} sayfa)` : ""}`
+  const infoText = `${t("quran.page")} ${currentPage} ${t("quran.of")} 604${cuzOfCurrent ? ` | ${t("quran.juz")} ${cuzOfCurrent}` : ""
+    }${selectedCuz ? ` | (${pagesToShow.length} sayfa)` : ""}`
 
   return (
-  <div className="mx-auto mb-6 w-full max-w-5xl px-2 sm:mb-8 sm:px-4">
+    <div className="mx-auto mb-6 w-full max-w-5xl px-2 sm:mb-8 sm:px-4">
       <div className="flex flex-wrap items-center gap-3 lg:flex-nowrap lg:items-stretch">
         <Button
           asChild
@@ -141,13 +140,15 @@ export function QuranNavigation({ currentPage }: QuranNavigationProps) {
 
         <Select value={selectedCuz !== null ? String(selectedCuz) : "all"} onValueChange={handleCuzChange}>
           <SelectTrigger className="flex-none min-w-[8.5rem] lg:w-40">
-            <SelectValue>{selectedCuz !== null ? `Cüz ${selectedCuz}` : "Cüz Seç"}</SelectValue>
+            <SelectValue>
+              {selectedCuz !== null ? `${t("quran.juz")} ${selectedCuz}` : t("quran.selectJuz")}
+            </SelectValue>
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">Cüz Seç</SelectItem>
+            <SelectItem value="all">{t("quran.selectJuz")}</SelectItem>
             {cuzRanges.map((item) => (
               <SelectItem key={item.cuz} value={String(item.cuz)}>
-                Cüz {item.cuz}
+                {t("quran.juz")} {item.cuz}
               </SelectItem>
             ))}
           </SelectContent>

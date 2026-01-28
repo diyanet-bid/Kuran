@@ -17,8 +17,20 @@ export async function GET(
   const resolvedParams = await params
   const pageNumber = resolvedParams.number
 
+  const searchParams = request.nextUrl.searchParams
+  const languageId = searchParams.get('language_id')
+  const arabicTextGroupId = searchParams.get('arabic_text_group_id')
+
+  const apiUrl = new URL(`${API_BASE_URL}/api/v1/verses/page/${pageNumber}`)
+  if (languageId) {
+    apiUrl.searchParams.set('language_id', languageId)
+  }
+  if (arabicTextGroupId) {
+    apiUrl.searchParams.set('arabic_text_group_id', arabicTextGroupId)
+  }
+
   try {
-    const response = await fetch(`${API_BASE_URL}/api/v1/verses/page/${pageNumber}`, {
+    const response = await fetch(apiUrl.toString(), {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
