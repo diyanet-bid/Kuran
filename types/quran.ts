@@ -64,18 +64,22 @@ export interface DIBApiResponse<T> {
 export interface DIBChaptersResponse extends DIBApiResponse<DIBChapter[]> {}
 
 // DIB Page API Response Types
+// Verified against real API: GET /api/v1/verses/page/{page_number}
+// arabic_script contains text_font_id (nullable) and text only
 export interface DIBVerse {
   page_number: number
   surah_id: number
   verse_id_in_surah: number
   translation: {
-    language_id: number
+    language_id?: number
     text: string
   }
   arabic_script: {
-    text_group_id: number
-    text_group_name: string
+    text_font_id: number | null
     text: string
+  }
+  surah_info?: {
+    besmele_visible: boolean
   }
 }
 
@@ -89,6 +93,7 @@ export interface DIBPageResponse {
 }
 
 // DIB Surah API Response Types
+// Verified against real API: GET /api/v1/chapters/{chapter_id}
 export interface DIBSurahVerse {
   page_number: number
   surah_id: number
@@ -97,8 +102,11 @@ export interface DIBSurahVerse {
     text: string
   }
   arabic_script: {
-    text_font_id: number
+    text_font_id: number | null
     text: string
+  }
+  surah_info?: {
+    besmele_visible: boolean
   }
 }
 
