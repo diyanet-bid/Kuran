@@ -1,5 +1,33 @@
 import type { DIBApiResponse, DIBChaptersResponse } from '@/types/quran'
 
+/** HTTP-aware error so UI and React Query can distinguish 403 vs 5xx. */
+export class ApiError extends Error {
+  status?: number
+
+  constructor(message: string, status?: number) {
+    super(message)
+    this.name = 'ApiError'
+    this.status = status
+  }
+}
+
+export function getApiErrorStatus(error: unknown): number | undefined {
+  if (error instanceof ApiError) {
+    return error.status
+  }
+  if (error && typeof error === 'object' && 'status' in error) {
+    const status = (error as { status?: unknown }).status
+    return typeof status === 'number' ? status : undefined
+  }
+  return undefined
+}
+
+/** 4xx: show server message. 5xx / network: use i18n fallback in UI. */
+export function isClientApiError(error: unknown): boolean {
+  const status = getApiErrorStatus(error)
+  return status !== undefined && status >= 400 && status < 500
+}
+
 // API Client for DIB Quran API - Using Next.js API routes to avoid CORS
 class ApiClient {
   private async request<T>(
@@ -41,8 +69,9 @@ class ApiClient {
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}))
         console.error('API Error Response:', errorData)
-        throw new Error(
-          errorData.error || errorData.message || `HTTP error! status: ${response.status}`
+        throw new ApiError(
+          errorData.error || errorData.message || `HTTP error! status: ${response.status}`,
+          response.status
         )
       }
 
@@ -51,10 +80,14 @@ class ApiClient {
       return data
     } catch (error) {
       console.error('API Request Failed:', error)
-      if (error instanceof Error) {
-        throw new Error(`API request failed: ${error.message}`)
+      // Preserve status for retry/UI decisions
+      if (error instanceof ApiError) {
+        throw error
       }
-      throw new Error('API request failed: Unknown error')
+      if (error instanceof Error) {
+        throw new ApiError(error.message)
+      }
+      throw new ApiError('API request failed: Unknown error')
     }
   }
 

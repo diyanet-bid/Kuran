@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useQuranStore } from "@/stores/quran-store";
 import { getPageData } from "@/services/quran-api";
+import { isClientApiError } from "@/services/api-client";
 import { VerseComponent } from "./verse-component";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { useLanguage } from "@/components/language-provider";
@@ -42,10 +43,18 @@ export function QuranReader({ pageNumber }: QuranReaderProps) {
   }
 
   if (error) {
+    const message =
+      isClientApiError(error) && error instanceof Error && error.message
+        ? error.message
+        : t("quran.error");
+
     return (
       <Card className="mx-auto max-w-2xl bg-card">
-        <CardContent className="py-8 text-center">
-          <p className="text-destructive">{t("quran.error")}</p>
+        <CardContent className="flex flex-col items-center gap-4 py-8 text-center">
+          <p className="text-destructive">{message}</p>
+          <Button asChild variant="outline" size="sm">
+            <Link href="/quran/page/1">{t("quran.backToPage1")}</Link>
+          </Button>
         </CardContent>
       </Card>
     );
