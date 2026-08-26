@@ -61,6 +61,8 @@ const translations = {
       "Sayfa verisi yüklenirken hata oluştu. Lütfen tekrar deneyin.",
     "quran.pageNotFound": "Sayfa bulunamadı.",
     "quran.surahNotFound": "Sure bulunamadı.",
+    "quran.backToPage1": "Sayfa 1'e dön",
+    "quran.backToSurahs": "Sure listesine dön",
 
     // Developer Pages
     "dev.welcome.title": "Hoş Geldiniz, Geliştiriciler!",
@@ -364,6 +366,8 @@ const translations = {
     "quran.error": "Error loading page data. Please try again.",
     "quran.pageNotFound": "Page not found.",
     "quran.surahNotFound": "Surah not found.",
+    "quran.backToPage1": "Back to page 1",
+    "quran.backToSurahs": "Back to surah list",
 
     // Developer Pages
     "dev.welcome.title": "Welcome, Developers!",
@@ -666,6 +670,8 @@ const translations = {
       "Error al cargar los datos de la página. Por favor, inténtalo de nuevo.",
     "quran.pageNotFound": "Página no encontrada.",
     "quran.surahNotFound": "Sura no encontrada.",
+    "quran.backToPage1": "Volver a la página 1",
+    "quran.backToSurahs": "Volver a la lista de suras",
 
     // Developer Pages
     "dev.welcome.title": "¡Bienvenidos, Desarrolladores!",

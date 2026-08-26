@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { BookmarkCheck } from "lucide-react";
 import Link from "next/link";
 import { getSurahData } from "@/services/quran-api";
+import { isClientApiError } from "@/services/api-client";
 import { VerseComponent } from "./verse-component";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { useQuranStore } from "@/stores/quran-store";
@@ -38,7 +39,25 @@ export function SurahReader({ surahId }: SurahReaderProps) {
     );
   }
 
-  if (error || !surahData) {
+  if (error) {
+    const message =
+      isClientApiError(error) && error instanceof Error && error.message
+        ? error.message
+        : t("quran.error");
+
+    return (
+      <Card className="mx-auto max-w-2xl">
+        <CardContent className="flex flex-col items-center gap-4 py-8 text-center">
+          <p className="text-destructive">{message}</p>
+          <Button asChild variant="outline" size="sm">
+            <Link href="/quran/surahs">{t("quran.backToSurahs")}</Link>
+          </Button>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (!surahData) {
     return (
       <Card className="mx-auto max-w-2xl">
         <CardContent className="py-8 text-center">
