@@ -7,55 +7,30 @@ class ApiClient {
     options: RequestInit = {}
   ): Promise<T> {
     const url = `/api${endpoint}`
-    
-    const defaultHeaders = {
-      'Content-Type': 'application/json',
-    }
 
     const config: RequestInit = {
       ...options,
       headers: {
-        ...defaultHeaders,
+        'Content-Type': 'application/json',
         ...options.headers,
       },
     }
 
-    // Debug: Log request details
-    console.log('API Request:', {
-      url,
-      method: config.method || 'GET',
-      headers: config.headers,
-    })
-
+    let response: Response
     try {
-      const response = await fetch(url, config)
-      
-      // Debug: Log response details
-      console.log('API Response:', {
-        status: response.status,
-        statusText: response.statusText,
-        ok: response.ok,
-        headers: Object.fromEntries(response.headers.entries())
-      })
-      
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}))
-        console.error('API Error Response:', errorData)
-        throw new Error(
-          errorData.error || errorData.message || `HTTP error! status: ${response.status}`
-        )
-      }
-
-      const data = await response.json()
-      console.log('API Success Response:', data)
-      return data
-    } catch (error) {
-      console.error('API Request Failed:', error)
-      if (error instanceof Error) {
-        throw new Error(`API request failed: ${error.message}`)
-      }
-      throw new Error('API request failed: Unknown error')
+      response = await fetch(url, config)
+    } catch {
+      throw new Error('API request failed: Network error')
     }
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}))
+      const message =
+        errorData.error || errorData.message || `HTTP error! status: ${response.status}`
+      throw new Error(`API request failed: ${message}`)
+    }
+
+    return (await response.json()) as T
   }
 
   async get<T>(endpoint: string): Promise<T> {
@@ -126,4 +101,4 @@ export function transformChapterToSurah(dibChapter: DIBChapter) {
       en: stripHtml(dibChapter.MealInfo) || `Information about ${dibChapter.SureNameTurkish} surah`,
     },
   }
-} 
+}
