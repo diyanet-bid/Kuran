@@ -1,46 +1,21 @@
-import { NextRequest, NextResponse } from 'next/server'
-
-const API_BASE_URL = process.env.DIB_KURAN_API_BASE_URL
-const API_TOKEN = process.env.DIB_KURAN_API_TOKEN
+import { NextRequest } from 'next/server'
+import {
+  QURAN_LIMITS,
+  badRequest,
+  parseBoundedInt,
+  proxyDib,
+} from '@/lib/api/dib-proxy'
 
 export async function GET(
-  request: NextRequest,
+  _request: NextRequest,
   { params }: { params: Promise<{ number: string }> }
 ) {
-  if (!API_BASE_URL || !API_TOKEN) {
-    return NextResponse.json(
-      { error: 'API configuration missing' },
-      { status: 500 }
-    )
+  const { number } = await params
+  const page = parseBoundedInt(number, QURAN_LIMITS.pages)
+
+  if (page === null) {
+    return badRequest(`Page number must be between 1 and ${QURAN_LIMITS.pages}`)
   }
 
-  const resolvedParams = await params
-  const pageNumber = resolvedParams.number
-
-  try {
-    const response = await fetch(`${API_BASE_URL}/api/v1/verses/page/${pageNumber}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${API_TOKEN}`,
-      },
-    })
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}))
-      return NextResponse.json(
-        { error: errorData.message || `HTTP error! status: ${response.status}` },
-        { status: response.status }
-      )
-    }
-
-    const data = await response.json()
-    return NextResponse.json(data)
-  } catch (error) {
-    console.error('API request failed:', error)
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
-  }
-} 
+  return proxyDib(`/api/v1/verses/page/${page}`)
+}
